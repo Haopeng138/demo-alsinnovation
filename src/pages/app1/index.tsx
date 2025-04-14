@@ -29,6 +29,7 @@ export function App1() {
         <div className="bg-gray-100 min-h-screen">
             <Header links={links} />
             <Routes>
+                <Route path="/" element={<div>Welcome to the App1</div>} />
                 <Route path="dashboard" element={<Dashboard2 />} />
                 <Route path="settings" element={<Settings />} />
             </Routes>

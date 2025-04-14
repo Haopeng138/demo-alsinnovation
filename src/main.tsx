@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 import ClimateForecasts from "./component/prueba2.tsx";
 import MapaDashboard from "./component/mapa.tsx";
+import Dashboard from "./component/app3.tsx";
 
 const root = document.getElementById("root");
 
@@ -21,6 +22,7 @@ ReactDOM.createRoot(root).render(
                 element={<ClimateForecasts></ClimateForecasts>}
             />
             <Route path="/app2" element={<MapaDashboard />} />
+            <Route path="/app3" element={<Dashboard/>} />
         </Routes>
     </BrowserRouter>
 );

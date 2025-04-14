@@ -41,7 +41,7 @@ const sparklineData = {
 };
 
 // Convert sparkline data to chart format
-const formatSparklineData = (data) => {
+const formatSparklineData = (data: number[]) => {
     return data.map((value, index) => ({
         name: `M${index + 1}`,
         value,
@@ -181,8 +181,13 @@ function DashboardHeader() {
     );
 }
 
+interface SelectDropdownProps {
+    options: string[];
+    defaultValue: string;
+}
+
 // Select Dropdown Component
-function SelectDropdown({ options, defaultValue }) {
+function SelectDropdown({ options, defaultValue }: SelectDropdownProps) {
     return (
         <div className="relative">
             <select
@@ -244,6 +249,16 @@ function KeyMetrics() {
     );
 }
 
+interface KeyMetricCardProps {
+    title: string;
+    value: string;
+    unit?: string;
+    trend: string;
+    trendDirection: 'up' | 'down';
+    sparklineData: { name: string; value: number }[];
+    color: string;
+}
+
 // Key Metric Card Component
 function KeyMetricCard({
     title,
@@ -253,7 +268,7 @@ function KeyMetricCard({
     trendDirection,
     sparklineData,
     color,
-}) {
+}: KeyMetricCardProps) {
     return (
         <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md hover:-translate-y-1">
             <div className="text-sm text-gray-500">{title}</div>
@@ -349,8 +364,15 @@ function ForecastCharts() {
     );
 }
 
+interface ChartCardProps {
+    title: string;
+    data: { name: string; actual: number; forecast: number }[];
+    lines: { dataKey: string; color: string; name: string }[];
+    yDomain: [number, number];
+}
+
 // Chart Card Component
-function ChartCard({ title, data, lines, yDomain }) {
+function ChartCard({ title, data, lines, yDomain }: ChartCardProps) {
     return (
         <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md hover:-translate-y-1">
             <div className="flex justify-between items-center mb-4">
@@ -393,13 +415,20 @@ function ChartCard({ title, data, lines, yDomain }) {
     );
 }
 
+interface WorldMapSectionProps {
+    activeMapLayer: string;
+    setActiveMapLayer: (layer: string) => void;
+    selectedCountry: string;
+    setSelectedCountry: (country: string) => void;
+}
+
 // World Map Section Component
 function WorldMapSection({
     activeMapLayer,
     setActiveMapLayer,
     selectedCountry,
     setSelectedCountry,
-}) {
+}: WorldMapSectionProps) {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md">
@@ -440,8 +469,14 @@ function WorldMapSection({
     );
 }
 
+interface MapLayerButtonProps {
+    active: boolean;
+    onClick: () => void;
+    children: React.ReactNode;
+}
+
 // Map Layer Button Component
-function MapLayerButton({ active, onClick, children }) {
+function MapLayerButton({ active, onClick, children }: MapLayerButtonProps) {
     return (
         <button
             className={`px-3 py-1 rounded text-sm ${
@@ -456,8 +491,13 @@ function MapLayerButton({ active, onClick, children }) {
     );
 }
 
+interface WorldMapProps {
+    activeLayer: string;
+    onSelectCountry: (country: string) => void;
+}
+
 // World Map Component
-function WorldMap({ activeLayer, onSelectCountry }) {
+function WorldMap({ activeLayer, onSelectCountry }: WorldMapProps) {
     // In a real app, this would be an actual map implementation
     // using a library like react-simple-maps or Mapbox
     return (
@@ -577,10 +617,23 @@ function WorldMap({ activeLayer, onSelectCountry }) {
     );
 }
 
+interface CountryDetailsProps {
+    country: string;
+}
 // Country Details Component
-function CountryDetails({ country }) {
+function CountryDetails({ country }: CountryDetailsProps) {
     // This would normally fetch country-specific data
-    const countryData = {
+    interface CountryData {
+        solarRadiation: string;
+        temperature: string;
+        precipitation: string;
+        humidity: string;
+        windSpeed: string;
+        climateZones: string;
+        carbonEmissions: string;
+        renewableEnergy: string;
+    }
+    const countryData: Record<string, CountryData> = {
         Brazil: {
             solarRadiation: '5.7 kWh',
             temperature: '26.8°C',
@@ -676,8 +729,13 @@ function CountryDetails({ country }) {
     );
 }
 
+interface CountryStatProps {
+    label: string;
+    value: string;
+}
+
 // Country Stat Component
-function CountryStat({ label, value }) {
+function CountryStat({ label, value }: CountryStatProps) {
     return (
         <div className="flex justify-between items-center py-2 border-b border-gray-100">
             <div className="text-sm text-gray-600">{label}</div>

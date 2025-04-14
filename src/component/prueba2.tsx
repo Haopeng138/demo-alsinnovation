@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { JSX, useState } from "react";
 import {
     LineChart,
     Line,
-    BarChart,
-    Bar,
-    AreaChart,
-    Area,
     PieChart,
     Pie,
     Cell,
@@ -19,7 +15,6 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import {
-    Calendar,
     Download,
     AlertCircle,
     Zap,
@@ -69,7 +64,6 @@ export default function ClimateForecasts() {
 
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900">
-            <Header /> {/* Replace the old header with this component */}
             <main className="p-4">
                 <div className="max-w-7xl mx-auto">
                     {/* Header */}
@@ -419,8 +413,14 @@ export function Header() {
     );
 }
 
+interface NavLinkProps {
+    href: string;
+    active?: boolean;
+    children: React.ReactNode;
+}
+
 // Navigation Link Component
-function NavLink({ href, active, children }) {
+function NavLink({ href, active, children }: NavLinkProps) {
     return (
         <a
             href={href}
@@ -435,7 +435,13 @@ function NavLink({ href, active, children }) {
     );
 }
 
-function SelectDropdown({ options, value, onChange }) {
+interface SelectDropdownProps {
+    options: string[];
+    value: string;
+    onChange: (value: string) => void;
+}
+
+function SelectDropdown({ options, value, onChange }: SelectDropdownProps) {
     return (
         <div className="relative">
             <select
@@ -456,7 +462,14 @@ function SelectDropdown({ options, value, onChange }) {
     );
 }
 
-function AlertCard({ icon, title, description, severity }) {
+interface AlertCardProps {
+    icon: JSX.Element;
+    title: string;
+    description: string;
+    severity: "high" | "medium" | "low";
+}
+
+function AlertCard({ icon, title, description, severity }: AlertCardProps) {
     const severityColors = {
         high: "bg-red-50 border-red-200 text-red-800",
         medium: "bg-amber-50 border-amber-200 text-amber-800",

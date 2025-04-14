@@ -1,0 +1,589 @@
+import { useState, useEffect } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { Search, Download, Maximize2, MapPin, ChevronDown } from "lucide-react";
+
+// Dummy data for charts
+const temperatureData = [
+  { name: "Apr 29", actual: 52, forecast: 50 },
+  { name: "Apr 30", actual: 60, forecast: 54 },
+  { name: "May 1", actual: 57, forecast: 62 },
+  { name: "May 2", actual: 63, forecast: 71 },
+];
+
+const precipitationData = [
+  { name: "Apr 29", actual: 0.25, forecast: 0.0 },
+  { name: "Apr 30", actual: 0.18, forecast: 0.0 },
+  { name: "May 1", actual: 0.38, forecast: 0.22 },
+  { name: "Apr 2", actual: 0.42, forecast: 0.58 },
+];
+
+const windData = [
+  { name: "Apr 29", actual: 8, forecast: 1 },
+  { name: "Apr 30", actual: 10, forecast: 0 },
+  { name: "May 1", actual: 5, forecast: 7 },
+  { name: "May 2", actual: 7, forecast: 10 },
+];
+
+const sparklineData = {
+  temperature: [22, 23, 25, 26, 27, 28, 29, 29, 28, 26, 24, 23],
+  precipitation: [120, 90, 70, 65, 60, 50, 55, 65, 75, 85, 95, 110],
+  wind: [9, 8, 10, 11, 12, 10, 9, 8, 9, 10, 11, 12],
+  humidity: [65, 60, 55, 58, 62, 68, 72, 70, 65, 63, 67, 70],
+};
+
+// Convert sparkline data to chart format
+const formatSparklineData = (data) => {
+  return data.map((value, index) => ({
+    name: `M${index + 1}`,
+    value,
+  }));
+};
+
+// Main App Component
+export default function ClimateAnalyticsDashboard() {
+  const [activeMapLayer, setActiveMapLayer] = useState("temperature");
+  const [selectedCountry, setSelectedCountry] = useState("Brazil");
+  
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
+      <Header />
+      <main className="flex-grow p-6">
+        <div className="max-w-7xl mx-auto">
+          <DashboardHeader />
+          <KeyMetrics />
+          <ForecastCharts />
+          <WorldMapSection 
+            activeMapLayer={activeMapLayer} 
+            setActiveMapLayer={setActiveMapLayer}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+          />
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+// Header Component
+function Header() {
+  return (
+    <header className="bg-white shadow-sm sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center">
+            <ALSLogo />
+          </div>
+          <nav className="hidden md:flex space-x-8">
+            <NavLink href="#" active>Dashboard</NavLink>
+            <NavLink href="#">Historic Data</NavLink>
+            <NavLink href="#">Forecasts</NavLink>
+            <NavLink href="#">Reports</NavLink>
+            <NavLink href="#">Settings</NavLink>
+          </nav>
+          <div className="flex items-center bg-gray-100 rounded-md px-3 py-2">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="bg-transparent border-none focus:outline-none text-sm w-40"
+            />
+            <Search size={16} className="text-gray-500" />
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+// ALS Logo Component
+export function ALSLogo() {
+  return (
+    <div className="flex items-center space-x-2">
+      <svg width="36" height="36" viewBox="0 0 100 36" className="text-blue-900">
+        <g fill="currentColor">
+          <path d="M12.2,0L0,35.8h5.9l2.4-7.1h11.4l2.4,7.1h5.9L16.4,0H12.2z M9.8,23.9l4-11.6l4,11.6H9.8z" />
+          <path d="M30.7,0v35.8h5.3V0H30.7z" />
+          <path d="M56.4,0h-5l-10.8,16v-16h-5.3v35.8h5.3V21.4l11.1,14.4h6.3L46.4,19.8L56.4,0z" />
+        </g>
+      </svg>
+      <div className="flex flex-col">
+        <span className="font-bold text-blue-900 text-lg">Arm's Length</span>
+        <span className="font-bold text-blue-900 text-xs -mt-1">Services Innovation</span>
+      </div>
+    </div>
+  );
+}
+
+// Navigation Link Component
+function NavLink({ href, active, children }) {
+  return (
+    <a
+      href={href}
+      className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
+        active
+          ? "text-blue-900 border-b-2 border-blue-900"
+          : "text-gray-500 hover:text-gray-700 hover:border-b-2 hover:border-gray-300"
+      }`}
+    >
+      {children}
+    </a>
+  );
+}
+
+// Dashboard Header Component
+function DashboardHeader() {
+  return (
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+      <h1 className="text-3xl font-bold text-blue-900 mb-4 md:mb-0">Climate Analytics</h1>
+      <div className="flex space-x-3">
+        <SelectDropdown options={["Global View", "By Continent", "By Country"]} defaultValue="Global View" />
+        <SelectDropdown options={["2025", "2024", "2023", "2022"]} defaultValue="2025" />
+        <SelectDropdown options={["Yearly", "Quarterly", "Monthly"]} defaultValue="Monthly" />
+      </div>
+    </div>
+  );
+}
+
+// Select Dropdown Component
+function SelectDropdown({ options, defaultValue }) {
+  return (
+    <div className="relative">
+      <select
+        className="appearance-none bg-white border border-gray-200 rounded-md py-2 pl-3 pr-8 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-blue-900 text-sm"
+        defaultValue={defaultValue}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <ChevronDown size={16} />
+      </div>
+    </div>
+  );
+}
+
+// Key Metrics Section
+function KeyMetrics() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <KeyMetricCard
+        title="Average Temperature"
+        value="27.4°C"
+        trend="+1.2°C"
+        trendDirection="up"
+        sparklineData={formatSparklineData(sparklineData.temperature)}
+        color="#0c2340"
+      />
+      <KeyMetricCard
+        title="Total Precipitation"
+        value="78"
+        unit="mm/month"
+        trend="-3%"
+        trendDirection="down"
+        sparklineData={formatSparklineData(sparklineData.precipitation)}
+        color="#0c2340"
+      />
+      <KeyMetricCard
+        title="Average Wind Speed"
+        value="11"
+        unit="mph"
+        trend="+8%"
+        trendDirection="up"
+        sparklineData={formatSparklineData(sparklineData.wind)}
+        color="#0c2340"
+      />
+      <KeyMetricCard
+        title="Average Humidity"
+        value="64%"
+        trend="+4%"
+        trendDirection="up"
+        sparklineData={formatSparklineData(sparklineData.humidity)}
+        color="#0c2340"
+      />
+    </div>
+  );
+}
+
+// Key Metric Card Component
+function KeyMetricCard({ title, value, unit, trend, trendDirection, sparklineData, color }) {
+  return (
+    <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md hover:-translate-y-1">
+      <div className="text-sm text-gray-500">{title}</div>
+      <div className="text-2xl font-bold text-blue-900">{value}</div>
+      {unit && <div className="text-xs text-gray-500">{unit}</div>}
+      <div
+        className={`text-xs flex items-center ${
+          trendDirection === "up" ? "text-red-500" : "text-green-500"
+        }`}
+      >
+        {trendDirection === "up" ? (
+          <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+          </svg>
+        ) : (
+          <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        )}
+        {trend} from last year
+      </div>
+      <div className="h-12 mt-2">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={sparklineData}>
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke={color}
+              strokeWidth={2}
+              dot={false}
+              isAnimationActive={false}
+            />
+            <YAxis domain={["dataMin", "dataMax"]} hide />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+
+// Forecast Charts Section
+function ForecastCharts() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <ChartCard
+        title="Temperature Forecast"
+        data={temperatureData}
+        lines={[
+          { dataKey: "actual", color: "#0c2340", name: "Actual" },
+          { dataKey: "forecast", color: "#d1342f", name: "Forecast" },
+        ]}
+        yDomain={[40, 80]}
+      />
+      <ChartCard
+        title="Precipitation Forecast"
+        data={precipitationData}
+        lines={[
+          { dataKey: "actual", color: "#0c2340", name: "Actual" },
+          { dataKey: "forecast", color: "#d1342f", name: "Forecast" },
+        ]}
+        yDomain={[0, 1]}
+      />
+      <ChartCard
+        title="Wind Forecast"
+        data={windData}
+        lines={[
+          { dataKey: "actual", color: "#0c2340", name: "Actual" },
+          { dataKey: "forecast", color: "#d1342f", name: "Forecast" },
+        ]}
+        yDomain={[0, 20]}
+      />
+    </div>
+  );
+}
+
+// Chart Card Component
+function ChartCard({ title, data, lines, yDomain }) {
+  return (
+    <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md hover:-translate-y-1">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="font-semibold text-blue-900">{title}</h3>
+        <div className="flex space-x-2">
+          <button className="p-1 hover:bg-gray-100 rounded">
+            <Download size={16} className="text-gray-500" />
+          </button>
+          <button className="p-1 hover:bg-gray-100 rounded">
+            <Maximize2 size={16} className="text-gray-500" />
+          </button>
+        </div>
+      </div>
+      <div className="h-56">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.1} />
+            <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+            <YAxis domain={yDomain} tick={{ fontSize: 12 }} />
+            <Tooltip />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+            {lines.map((line) => (
+              <Line
+                key={line.dataKey}
+                type="monotone"
+                dataKey={line.dataKey}
+                name={line.name}
+                stroke={line.color}
+                strokeWidth={2}
+                activeDot={{ r: 6 }}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+
+// World Map Section Component
+function WorldMapSection({ activeMapLayer, setActiveMapLayer, selectedCountry, setSelectedCountry }) {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-semibold text-blue-900">Global Climate Overview</h3>
+          <div className="flex space-x-2">
+            <MapLayerButton 
+              active={activeMapLayer === "temperature"} 
+              onClick={() => setActiveMapLayer("temperature")}
+            >
+              Temperature
+            </MapLayerButton>
+            <MapLayerButton 
+              active={activeMapLayer === "precipitation"} 
+              onClick={() => setActiveMapLayer("precipitation")}
+            >
+              Precipitation
+            </MapLayerButton>
+            <MapLayerButton 
+              active={activeMapLayer === "wind"} 
+              onClick={() => setActiveMapLayer("wind")}
+            >
+              Wind
+            </MapLayerButton>
+          </div>
+        </div>
+        <div className="h-80 relative">
+          <WorldMap activeLayer={activeMapLayer} onSelectCountry={setSelectedCountry} />
+        </div>
+      </div>
+      <CountryDetails country={selectedCountry} />
+    </div>
+  );
+}
+
+// Map Layer Button Component
+function MapLayerButton({ active, onClick, children }) {
+  return (
+    <button
+      className={`px-3 py-1 rounded text-sm ${
+        active
+          ? "bg-blue-800 text-white"
+          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+      }`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+
+// World Map Component
+function WorldMap({ activeLayer, onSelectCountry }) {
+  // In a real app, this would be an actual map implementation
+  // using a library like react-simple-maps or Mapbox
+  return (
+    <div className="w-full h-full bg-gray-50 rounded flex items-center justify-center relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10">
+        <img 
+          src="/api/placeholder/800/400" 
+          alt="World Map Background" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+      
+      {/* Simulated map with a few interactive points */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/3">
+        <svg width="600" height="300" viewBox="0 0 800 400" className="opacity-80">
+          <path d="M130,180 Q250,120 350,170 T550,190 T750,160" stroke="#0c2340" strokeWidth="1" fill="none" />
+          <path d="M150,230 Q250,260 350,230 T550,240 T730,220" stroke="#0c2340" strokeWidth="1" fill="none" />
+          <path d="M100,150 Q250,200 400,180 T600,170 T780,200" stroke="#0c2340" strokeWidth="1" fill="none" />
+        </svg>
+      </div>
+      
+      {/* Brazil highlight */}
+      <div 
+        className="absolute cursor-pointer"
+        style={{ left: '35%', top: '60%' }}
+        onClick={() => onSelectCountry("Brazil")}
+      >
+        <div className="relative">
+          <MapPin 
+            size={28} 
+            className="text-blue-900 -translate-x-1/2 -translate-y-full" 
+          />
+          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-semibold text-blue-900 whitespace-nowrap bg-white px-2 py-1 rounded shadow-sm">
+            Brazil
+          </div>
+        </div>
+      </div>
+      
+      {/* USA point */}
+      <div 
+        className="absolute cursor-pointer"
+        style={{ left: '25%', top: '37%' }}
+        onClick={() => onSelectCountry("United States")}
+      >
+        <MapPin 
+          size={22} 
+          className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full" 
+        />
+      </div>
+      
+      {/* Europe point */}
+      <div 
+        className="absolute cursor-pointer"
+        style={{ left: '52%', top: '35%' }}
+        onClick={() => onSelectCountry("Germany")}
+      >
+        <MapPin 
+          size={22} 
+          className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full" 
+        />
+      </div>
+      
+      {/* Asia point */}
+      <div 
+        className="absolute cursor-pointer"
+        style={{ left: '70%', top: '40%' }}
+        onClick={() => onSelectCountry("China")}
+      >
+        <MapPin 
+          size={22} 
+          className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full" 
+        />
+      </div>
+      
+      {/* Australia point */}
+      <div 
+        className="absolute cursor-pointer"
+        style={{ left: '78%', top: '65%' }}
+        onClick={() => onSelectCountry("Australia")}
+      >
+        <MapPin 
+          size={22} 
+          className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full" 
+        />
+      </div>
+      
+      {/* Map layer indicators */}
+      <div className="absolute bottom-2 right-2 bg-white bg-opacity-80 p-2 rounded shadow-sm">
+        <div className="text-xs font-medium text-blue-900">
+          {activeLayer === "temperature" && "Temperature Map Layer"}
+          {activeLayer === "precipitation" && "Precipitation Map Layer"}
+          {activeLayer === "wind" && "Wind Map Layer"}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Country Details Component
+function CountryDetails({ country }) {
+  // This would normally fetch country-specific data
+  const countryData = {
+    Brazil: {
+      solarRadiation: "5.7 kWh",
+      temperature: "26.8°C",
+      precipitation: "1780 mm",
+      humidity: "80%",
+      windSpeed: "3.5 m/s",
+      climateZones: "5 major zones",
+      carbonEmissions: "2.2 tons per capita",
+      renewableEnergy: "45% of total"
+    },
+    "United States": {
+      solarRadiation: "4.8 kWh",
+      temperature: "12.4°C",
+      precipitation: "760 mm",
+      humidity: "55%",
+      windSpeed: "4.2 m/s",
+      climateZones: "7 major zones",
+      carbonEmissions: "15.5 tons per capita",
+      renewableEnergy: "20% of total"
+    },
+    Germany: {
+      solarRadiation: "3.2 kWh",
+      temperature: "9.6°C",
+      precipitation: "700 mm",
+      humidity: "65%",
+      windSpeed: "3.8 m/s",
+      climateZones: "2 major zones",
+      carbonEmissions: "8.4 tons per capita",
+      renewableEnergy: "46% of total"
+    },
+    China: {
+      solarRadiation: "4.6 kWh",
+      temperature: "14.7°C",
+      precipitation: "640 mm",
+      humidity: "60%",
+      windSpeed: "3.2 m/s",
+      climateZones: "5 major zones",
+      carbonEmissions: "7.4 tons per capita",
+      renewableEnergy: "29% of total"
+    },
+    Australia: {
+      solarRadiation: "6.2 kWh",
+      temperature: "21.9°C",
+      precipitation: "450 mm",
+      humidity: "40%",
+      windSpeed: "4.5 m/s",
+      climateZones: "6 major zones",
+      carbonEmissions: "15.2 tons per capita",
+      renewableEnergy: "24% of total"
+    }
+  };
+
+  const data = countryData[country] || countryData.Brazil;
+
+  return (
+    <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="font-semibold text-blue-900 text-lg">{country}</h3>
+        <img src="/api/placeholder/30/20" alt={`${country} Flag`} className="h-5 w-8 object-cover" />
+      </div>
+      <div className="space-y-3">
+        <CountryStat label="Annual Solar Radiation:" value={data.solarRadiation} />
+        <CountryStat label="Average Temperature:" value={data.temperature} />
+        <CountryStat label="Precipitation:" value={data.precipitation} />
+        <CountryStat label="Average Humidity:" value={data.humidity} />
+        <CountryStat label="Wind Speed:" value={data.windSpeed} />
+        <CountryStat label="Climate Zones:" value={data.climateZones} />
+        <CountryStat label="Carbon Emissions:" value={data.carbonEmissions} />
+        <CountryStat label="Renewable Energy:" value={data.renewableEnergy} />
+      </div>
+    </div>
+  );
+}
+
+// Country Stat Component
+function CountryStat({ label, value }) {
+  return (
+    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+      <div className="text-sm text-gray-600">{label}</div>
+      <div className="text-sm font-medium text-blue-900">{value}</div>
+    </div>
+  );
+}
+
+// Footer Component
+function Footer() {
+  return (
+    <footer className="bg-blue-900 text-white py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div>
+            <div className="text-lg font-bold">ALS Innovation</div>
+            <div className="text-xs text-gray-300 mt-1">© 2025 Arm's Length Services. All rights reserved.</div>
+          </div>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" className="text-sm text-gray-200 hover:text-white">About</a>
+            <a href="#" className="text-sm text-gray-200 hover:text-white">Contact</a>
+            <a href="#" className="text-sm text-gray-200 hover:text-white">Privacy Policy</a>
+            <a href="#" className="text-sm text-gray-200 hover:text-white">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

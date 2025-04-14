@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
-import ClimateForecasts from "./prueba2.tsx";
-import MapaDashboard from "./mapa.tsx";
+import ClimateForecasts from "./component/prueba2.tsx";
+import MapaDashboard from "./component/mapa.tsx";
 
 const root = document.getElementById("root");
 

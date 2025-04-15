@@ -10,6 +10,7 @@ import ProductAnalysisDashboard from './bsc/manage/index.tsx';
 import { GodoBase } from './godo/index.tsx';
 import ChatBot from './godo/chabot/index.tsx';
 import GenerateNews from './godo/generatenews/index.tsx';
+import GodoProductAnalysisDashboard from './godo/manage/index.tsx';
 
 const root = document.getElementById('root');
 
@@ -42,6 +43,10 @@ ReactDOM.createRoot(root).render(
                 <Route path="/" element={<GodoBase />} />
                 <Route path="/app1/*" element={<ChatBot></ChatBot>} />
                 <Route path="/app2/*" element={<GenerateNews></GenerateNews>} />
+                <Route
+                    path="/app3/*"
+                    element={<GodoProductAnalysisDashboard />}
+                />
             </Routes>
         </BrowserRouter>
     </>

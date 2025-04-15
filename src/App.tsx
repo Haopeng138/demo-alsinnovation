@@ -34,27 +34,6 @@ const App = () => {
 
                 <div className="grid md:grid-cols-2 gap-8">
                     <Card
-                        title="Test"
-                        description="Test"
-                        route="/app"
-                        icon={
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-8 w-8"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                                />
-                            </svg>
-                        }
-                    />
-                    <Card
                         title="Climate Forecasts"
                         description="Access detailed climate forecasts and weather predictions"
                         route="/app1"
@@ -77,7 +56,7 @@ const App = () => {
                     />
 
                     <Card
-                        title="Map Dashboard"
+                        title="Mobility Prediction"
                         description="Interactive map visualization and geographic data analysis"
                         route="/app2"
                         icon={
@@ -98,8 +77,8 @@ const App = () => {
                         }
                     />
                     <Card
-                        title="Map Dashboard2"
-                        description="Interactive map visualization and geographic data analysis"
+                        title="Prediction Dashboard"
+                        description="Explore prediction trends and data analysis with IA"
                         route="/app3"
                         icon={
                             <svg

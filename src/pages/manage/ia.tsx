@@ -22,9 +22,6 @@ import {
     Package,
     DollarSign,
     AlertTriangle,
-    Bell,
-    User,
-    Calendar,
     ArrowUp,
     ArrowDown,
     Zap,
@@ -100,7 +97,7 @@ const tendenciaData = [
     { name: 'Dom', demanda: 5600 },
 ];
 
-export default function Dashboard() {
+export default function IADashboard() {
     const [currentDate] = useState(
         new Date().toLocaleDateString('es-ES', {
             weekday: 'long',
@@ -112,38 +109,8 @@ export default function Dashboard() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header principal fijo */}
-            <header className="bg-gray-800 text-white shadow-md">
-                <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                        <Logo />
-                        <h1 className="text-xl font-bold hidden md:block">
-                            Dashboard de IA Predictiva
-                        </h1>
-                    </div>
-                    <div className="flex items-center space-x-6">
-                        <div className="flex items-center text-sm">
-                            <Calendar size={16} className="mr-2" />
-                            <span>{currentDate}</span>
-                        </div>
-                        <div className="relative">
-                            <Bell size={20} />
-                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                                4
-                            </span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center">
-                                <User size={16} />
-                            </div>
-                            <span className="hidden md:inline">Admin</span>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
             {/* Contenido principal del dashboard */}
-            <main className="container mx-auto px-4 py-6">
+            <main className="mx-auto px-8 py-4">
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">
                         Panel de Control Predictivo
@@ -476,23 +443,6 @@ function KpiCard({
                     </div>
                 </div>
                 <div className="p-2 rounded-md bg-white shadow-sm">{icon}</div>
-            </div>
-        </div>
-    );
-}
-
-function Logo() {
-    return (
-        <div className="flex items-center">
-            <svg width="40" height="40" viewBox="0 0 400 400" fill="none">
-                <path
-                    d="M100 400L0 300V200L200 0L300 100H400L200 300L100 400Z"
-                    fill="white"
-                />
-            </svg>
-            <div className="ml-2">
-                <div className="text-lg font-bold leading-none">ALS</div>
-                <div className="text-xs opacity-80">Arm's Length Services</div>
             </div>
         </div>
     );

@@ -64,8 +64,8 @@ export default function ClimateForecasts() {
 
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900">
-            <main className="p-4">
-                <div className="max-w-7xl mx-auto">
+            <main className="px-8 py-4">
+                <div className="mx-auto">
                     {/* Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                         <h1 className="text-2xl font-bold text-blue-900 mb-4 md:mb-0">

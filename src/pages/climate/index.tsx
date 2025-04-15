@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
     LineChart,
     Line,
@@ -8,8 +8,12 @@ import {
     Tooltip,
     Legend,
     ResponsiveContainer,
+    Label,
 } from 'recharts';
 import { Search, Download, Maximize2, MapPin, ChevronDown } from 'lucide-react';
+import Header from '@/components/header';
+import { Route, Routes } from 'react-router';
+import ClimateForecasts from './forestcast';
 
 // Dummy data for charts
 const temperatureData = [
@@ -52,107 +56,39 @@ const formatSparklineData = (data: number[]) => {
 export default function ClimateAnalyticsDashboard() {
     const [activeMapLayer, setActiveMapLayer] = useState('temperature');
     const [selectedCountry, setSelectedCountry] = useState('Brazil');
-
+    const links = [
+        { label: 'Climate Analytics', path: '/app1' },
+        { label: 'Forecast', path: '/app1/forecast' },
+    ];
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
-            <Header />
-            <main className="flex-grow p-6">
-                <div className="max-w-7xl mx-auto">
-                    <DashboardHeader />
-                    <KeyMetrics />
-                    <ForecastCharts />
-                    <WorldMapSection
-                        activeMapLayer={activeMapLayer}
-                        setActiveMapLayer={setActiveMapLayer}
-                        selectedCountry={selectedCountry}
-                        setSelectedCountry={setSelectedCountry}
-                    />
-                </div>
-            </main>
-            <Footer />
+            <Header links={links}></Header>
+
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <main className="flex-grow p-6">
+                            <div className="mx-auto">
+                                <DashboardHeader />
+                                <KeyMetrics />
+                                <ForecastCharts />
+                                <WorldMapSection
+                                    activeMapLayer={activeMapLayer}
+                                    setActiveMapLayer={setActiveMapLayer}
+                                    selectedCountry={selectedCountry}
+                                    setSelectedCountry={setSelectedCountry}
+                                />
+                            </div>
+                        </main>
+                    }
+                ></Route>
+                <Route
+                    path="/forecast"
+                    element={<ClimateForecasts></ClimateForecasts>}
+                ></Route>
+            </Routes>
         </div>
-    );
-}
-
-// Header Component
-function Header() {
-    return (
-        <header className="bg-white shadow-sm sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
-                    <div className="flex items-center">
-                        <ALSLogo />
-                    </div>
-                    <nav className="hidden md:flex space-x-8">
-                        <NavLink href="#" active>
-                            Dashboard
-                        </NavLink>
-                        <NavLink href="#">Historic Data</NavLink>
-                        <NavLink href="#">Forecasts</NavLink>
-                        <NavLink href="#">Reports</NavLink>
-                        <NavLink href="#">Settings</NavLink>
-                    </nav>
-                    <div className="flex items-center bg-gray-100 rounded-md px-3 py-2">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="bg-transparent border-none focus:outline-none text-sm w-40"
-                        />
-                        <Search size={16} className="text-gray-500" />
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
-}
-
-// ALS Logo Component
-export function ALSLogo() {
-    return (
-        <div className="flex items-center space-x-2">
-            <svg
-                width="36"
-                height="36"
-                viewBox="0 0 100 36"
-                className="text-blue-900"
-            >
-                <g fill="currentColor">
-                    <path d="M12.2,0L0,35.8h5.9l2.4-7.1h11.4l2.4,7.1h5.9L16.4,0H12.2z M9.8,23.9l4-11.6l4,11.6H9.8z" />
-                    <path d="M30.7,0v35.8h5.3V0H30.7z" />
-                    <path d="M56.4,0h-5l-10.8,16v-16h-5.3v35.8h5.3V21.4l11.1,14.4h6.3L46.4,19.8L56.4,0z" />
-                </g>
-            </svg>
-            <div className="flex flex-col">
-                <span className="font-bold text-blue-900 text-lg">
-                    Arm's Length
-                </span>
-                <span className="font-bold text-blue-900 text-xs -mt-1">
-                    Services Innovation
-                </span>
-            </div>
-        </div>
-    );
-}
-
-interface NavLinkProps {
-    href: string;
-    active?: boolean;
-    children: React.ReactNode;
-}
-
-// Navigation Link Component
-function NavLink({ href, active, children }: NavLinkProps) {
-    return (
-        <a
-            href={href}
-            className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
-                active
-                    ? 'text-blue-900 border-b-2 border-blue-900'
-                    : 'text-gray-500 hover:text-gray-700 hover:border-b-2 hover:border-gray-300'
-            }`}
-        >
-            {children}
-        </a>
     );
 }
 
@@ -741,49 +677,5 @@ function CountryStat({ label, value }: CountryStatProps) {
             <div className="text-sm text-gray-600">{label}</div>
             <div className="text-sm font-medium text-blue-900">{value}</div>
         </div>
-    );
-}
-
-// Footer Component
-function Footer() {
-    return (
-        <footer className="bg-blue-900 text-white py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col md:flex-row justify-between items-center">
-                    <div>
-                        <div className="text-lg font-bold">ALS Innovation</div>
-                        <div className="text-xs text-gray-300 mt-1">
-                            © 2025 Arm's Length Services. All rights reserved.
-                        </div>
-                    </div>
-                    <div className="flex space-x-6 mt-4 md:mt-0">
-                        <a
-                            href="#"
-                            className="text-sm text-gray-200 hover:text-white"
-                        >
-                            About
-                        </a>
-                        <a
-                            href="#"
-                            className="text-sm text-gray-200 hover:text-white"
-                        >
-                            Contact
-                        </a>
-                        <a
-                            href="#"
-                            className="text-sm text-gray-200 hover:text-white"
-                        >
-                            Privacy Policy
-                        </a>
-                        <a
-                            href="#"
-                            className="text-sm text-gray-200 hover:text-white"
-                        >
-                            Terms of Service
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     );
 }

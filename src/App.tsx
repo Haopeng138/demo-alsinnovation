@@ -1,4 +1,3 @@
-import { Car } from 'lucide-react';
 import { JSX } from 'react';
 import { Link } from 'react-router';
 

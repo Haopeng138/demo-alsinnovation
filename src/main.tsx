@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router';
-import ClimateForecasts from './pages/prueba2.tsx';
 import MobilityDashboard from './pages/mobilityprediction/index.tsx';
-import Dashboard from './pages/app3.tsx';
+
 import { App1 } from './pages/app1';
+import ClimateAnalyticsDashboard from './pages/climate/index.tsx';
+import ProductAnalysisDashboard from './pages/manage/index.tsx';
 
 const root = document.getElementById('root');
 
@@ -15,16 +16,21 @@ if (!root) {
 }
 
 ReactDOM.createRoot(root).render(
-    <BrowserRouter>
+    <BrowserRouter basename="/demo">
         <Routes>
             <Route path="/" element={<App />} />
             <Route path="/app/*" element={<App1 />}></Route>
             <Route
                 path="/app1/*"
-                element={<ClimateForecasts></ClimateForecasts>}
+                element={
+                    <ClimateAnalyticsDashboard></ClimateAnalyticsDashboard>
+                }
             />
             <Route path="/app2/*" element={<MobilityDashboard />} />
-            <Route path="/app3" element={<Dashboard />} />
+            <Route
+                path="/app3/*"
+                element={<ProductAnalysisDashboard></ProductAnalysisDashboard>}
+            />
         </Routes>
     </BrowserRouter>
 );

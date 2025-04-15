@@ -9,6 +9,7 @@ import ClimateAnalyticsDashboard from './bsc/climate/index.tsx';
 import ProductAnalysisDashboard from './bsc/manage/index.tsx';
 import { GodoBase } from './godo/index.tsx';
 import ChatBot from './godo/chabot/index.tsx';
+import GenerateNews from './godo/generatenews/index.tsx';
 
 const root = document.getElementById('root');
 
@@ -40,6 +41,7 @@ ReactDOM.createRoot(root).render(
             <Routes>
                 <Route path="/" element={<GodoBase />} />
                 <Route path="/app1/*" element={<ChatBot></ChatBot>} />
+                <Route path="/app2/*" element={<GenerateNews></GenerateNews>} />
             </Routes>
         </BrowserRouter>
     </>

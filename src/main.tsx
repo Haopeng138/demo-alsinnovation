@@ -5,7 +5,6 @@ import App from './App.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import MobilityDashboard from './pages/mobilityprediction/index.tsx';
 
-import { App1 } from './pages/app1';
 import ClimateAnalyticsDashboard from './pages/climate/index.tsx';
 import ProductAnalysisDashboard from './pages/manage/index.tsx';
 
@@ -19,7 +18,6 @@ ReactDOM.createRoot(root).render(
     <BrowserRouter basename="/demo">
         <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/app/*" element={<App1 />}></Route>
             <Route
                 path="/app1/*"
                 element={

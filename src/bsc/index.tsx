@@ -1,46 +1,28 @@
-import { JSX } from 'react';
-import { Link } from 'react-router';
+import { Card } from '@/components/card';
 
-interface CardProps {
-    title: string;
-    description: string;
-    route: string;
-    icon: JSX.Element;
-}
-
-const Card = ({ title, description, route, icon }: CardProps) => {
+const BscBase = () => {
     return (
-        <Link to={route} className="block">
-            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-200">
-                <div className="flex items-center justify-center mb-4 text-blue-500">
-                    {icon}
+        <div className="min-h-screen bg-gray-50 py-12 px-6">
+            <div className="max-w-5xl mx-auto">
+                <div className="mb-10">
+                    <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+                        Business Intelligence Dashboard
+                    </h1>
+                    <p className="text-gray-500">
+                        Access and analyze critical business data and
+                        predictions
+                    </p>
                 </div>
-                <h2 className="text-xl font-semibold text-center mb-2">
-                    {title}
-                </h2>
-                <p className="text-gray-600 text-center">{description}</p>
-            </div>
-        </Link>
-    );
-};
 
-const App = () => {
-    return (
-        <div className="min-h-screen bg-gray-100 py-12 px-4">
-            <div className="max-w-4xl mx-auto">
-                <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-                    Welcome to Your Dashboard
-                </h1>
-
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <Card
-                        title="Climate Forecasts"
-                        description="Access detailed climate forecasts and weather predictions"
+                        title="Climate Analytics"
+                        description="Access detailed climate forecasts and predictive models"
                         route="/app1"
                         icon={
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-8 w-8"
+                                className="h-6 w-6"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -56,13 +38,13 @@ const App = () => {
                     />
 
                     <Card
-                        title="Mobility Prediction"
-                        description="Interactive map visualization and geographic data analysis"
+                        title="Mobility Insights"
+                        description="Geographic data visualization and transportation analysis"
                         route="/app2"
                         icon={
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-8 w-8"
+                                className="h-6 w-6"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -76,14 +58,15 @@ const App = () => {
                             </svg>
                         }
                     />
+
                     <Card
-                        title="Prediction Dashboard"
-                        description="Explore prediction trends and data analysis with IA"
+                        title="Predictive Analytics"
+                        description="AI-powered trend analysis and forecasting tools"
                         route="/app3"
                         icon={
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-8 w-8"
+                                className="h-6 w-6"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -92,7 +75,7 @@ const App = () => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth={2}
-                                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                                 />
                             </svg>
                         }
@@ -103,4 +86,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default BscBase;

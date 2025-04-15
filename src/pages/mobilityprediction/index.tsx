@@ -10,7 +10,6 @@ import {
     Line,
 } from 'recharts';
 import {
-    Search,
     Maximize2,
     ZoomIn,
     ZoomOut,

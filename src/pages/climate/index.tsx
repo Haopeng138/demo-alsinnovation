@@ -8,9 +8,8 @@ import {
     Tooltip,
     Legend,
     ResponsiveContainer,
-    Label,
 } from 'recharts';
-import { Search, Download, Maximize2, MapPin, ChevronDown } from 'lucide-react';
+import { Download, Maximize2, MapPin, ChevronDown } from 'lucide-react';
 import Header from '@/components/header';
 import { Route, Routes } from 'react-router';
 import ClimateForecasts from './forestcast';

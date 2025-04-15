@@ -213,7 +213,7 @@ export default function ClimateForecasts() {
                                             fill="#8884d8"
                                         >
                                             {climateRiskData.map(
-                                                (entry, index) => (
+                                                (_entry, index) => (
                                                     <Cell
                                                         key={`cell-${index}`}
                                                         fill={
@@ -309,7 +309,7 @@ export default function ClimateForecasts() {
                                         }
                                     >
                                         {carbonEmissionsData.map(
-                                            (entry, index) => (
+                                            (_entry, index) => (
                                                 <Cell
                                                     key={`cell-${index}`}
                                                     fill={

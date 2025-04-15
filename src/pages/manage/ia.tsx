@@ -1,4 +1,4 @@
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 import {
     LineChart,
     Line,
@@ -98,15 +98,6 @@ const tendenciaData = [
 ];
 
 export default function IADashboard() {
-    const [currentDate] = useState(
-        new Date().toLocaleDateString('es-ES', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        })
-    );
-
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Contenido principal del dashboard */}

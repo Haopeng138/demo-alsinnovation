@@ -21,7 +21,7 @@ function Settings() {
 
 export function App1() {
     const links = [
-        { label: 'About', path: '/app/dashboard' },
+        { label: 'Dashboard', path: '/app/dashboard' },
         { label: 'Contact', path: '/app/settings' },
     ];
 

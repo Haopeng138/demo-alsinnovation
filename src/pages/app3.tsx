@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import {
     LineChart,
     Line,
@@ -24,7 +24,6 @@ import {
     AlertTriangle,
     Bell,
     User,
-    Settings,
     Calendar,
     ArrowUp,
     ArrowDown,
@@ -437,8 +436,24 @@ export default function Dashboard() {
     );
 }
 
+interface KpiCardProps {
+    title: string;
+    value: string;
+    subtitle: string;
+    icon: JSX.Element;
+    trend: 'up' | 'down';
+    bgColor: string;
+}
+
 // Componentes auxiliares
-function KpiCard({ title, value, subtitle, icon, trend, bgColor }) {
+function KpiCard({
+    title,
+    value,
+    subtitle,
+    icon,
+    trend,
+    bgColor,
+}: KpiCardProps) {
     return (
         <div className={`rounded-lg shadow-md p-5 ${bgColor}`}>
             <div className="flex justify-between items-start">

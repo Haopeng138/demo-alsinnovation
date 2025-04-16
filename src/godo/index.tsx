@@ -1,4 +1,6 @@
 import { Card } from '@/components/card';
+import { HiOutlineNewspaper } from 'react-icons/hi';
+import { RiRobot2Line } from 'react-icons/ri';
 
 export function GodoBase() {
     return (
@@ -18,47 +20,17 @@ export function GodoBase() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                         <Card
-                            title="Climate Analytics"
-                            description="Access detailed climate forecasts and predictive models"
+                            title="Custom AI Agents"
+                            description="Build and deploy custom AI agents for various tasks"
                             route="/app1"
-                            icon={
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                                    />
-                                </svg>
-                            }
+                            icon={<RiRobot2Line />}
                         />
 
                         <Card
-                            title="Mobility Insights"
-                            description="Geographic data visualization and transportation analysis"
+                            title="Auto News Generation"
+                            description="Generate news articles and summaries using AI"
                             route="/app2"
-                            icon={
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                                    />
-                                </svg>
-                            }
+                            icon={<HiOutlineNewspaper />}
                         />
 
                         <Card

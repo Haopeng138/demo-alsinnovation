@@ -13,8 +13,8 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  server: {
-    host: 'www.alsinnovation.com',
-    port: 5173,
-  }
+  // server: {
+  //   host: 'www.alsinnovation.com',
+  //   port: 5173,
+  // }
 })

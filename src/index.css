@@ -1,1 +1,33 @@
 @import 'tailwindcss';
+
+@theme {
+    --color-bland-white: #ffffff;
+    --color-bland-blue: #3ba0ff;
+    --color-bland-light-blue: #cfe2f4;
+    --color-bland-dark-blue: #0f2c45;
+}
+@layer base {
+    html {
+        font-size: 16px;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--color-bland-white);
+        color: var(--color-bland-dark-blue);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--color-bland-dark-blue);
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: var(--color-bland-dark-blue);
+    }
+}

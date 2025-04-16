@@ -12,7 +12,7 @@ type HeaderProps = {
 
 function Header({ links }: HeaderProps) {
     return (
-        <header className="bg-white text-[#0f2c45] shadow-md">
+        <header className="bg-white text-bland-dark-blue shadow-md">
             <div className="px-8 py-4 flex justify-between items-center">
                 <div>
                     <Link to="/" className="flex items-center">
@@ -21,7 +21,7 @@ function Header({ links }: HeaderProps) {
                 </div>
                 <nav className="space-x-4">
                     {links.map(({ label, path }) => (
-                        <Link key={path} to={path} className="hover:underline">
+                        <Link key={path} to={path} className="">
                             {label}
                         </Link>
                     ))}

@@ -60,7 +60,7 @@ export default function ClimateAnalyticsDashboard() {
         { label: 'Forecast', path: '/app1/forecast' },
     ];
     return (
-        <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
+        <div className="min-h-screen bg-gray-50 text-bland-dark-blue flex flex-col">
             <Header links={links}></Header>
 
             <Routes>
@@ -95,7 +95,7 @@ export default function ClimateAnalyticsDashboard() {
 function DashboardHeader() {
     return (
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-            <h1 className="text-3xl font-bold text-blue-900 mb-4 md:mb-0">
+            <h1 className="text-3xl font-bold text-bland-dark-blue mb-4 md:mb-0">
                 Climate Analytics
             </h1>
             <div className="flex space-x-3">
@@ -126,7 +126,7 @@ function SelectDropdown({ options, defaultValue }: SelectDropdownProps) {
     return (
         <div className="relative">
             <select
-                className="appearance-none bg-white border border-gray-200 rounded-md py-2 pl-3 pr-8 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-blue-900 text-sm"
+                className="appearance-none bg-white border border-gray-200 rounded-md py-2 pl-3 pr-8 leading-tight focus:outline-none focus:ring-bland-dark-blue  focus:border-blue-900 text-sm"
                 defaultValue={defaultValue}
             >
                 {options.map((option) => (
@@ -135,7 +135,7 @@ function SelectDropdown({ options, defaultValue }: SelectDropdownProps) {
                     </option>
                 ))}
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-bland-dark-blue">
                 <ChevronDown size={16} />
             </div>
         </div>
@@ -207,7 +207,9 @@ function KeyMetricCard({
     return (
         <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md hover:-translate-y-1">
             <div className="text-sm text-gray-500">{title}</div>
-            <div className="text-2xl font-bold text-blue-900">{value}</div>
+            <div className="text-2xl font-bold text-bland-dark-blue">
+                {value}
+            </div>
             {unit && <div className="text-xs text-gray-500">{unit}</div>}
             <div
                 className={`text-xs flex items-center ${
@@ -311,7 +313,7 @@ function ChartCard({ title, data, lines, yDomain }: ChartCardProps) {
     return (
         <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md hover:-translate-y-1">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold text-blue-900">{title}</h3>
+                <h3 className="font-semibold text-bland-dark-blue">{title}</h3>
                 <div className="flex space-x-2">
                     <button className="p-1 hover:bg-gray-100 rounded">
                         <Download size={16} className="text-gray-500" />
@@ -368,7 +370,7 @@ function WorldMapSection({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-semibold text-blue-900">
+                    <h3 className="font-semibold text-bland-dark-blue">
                         Global Climate Overview
                     </h3>
                     <div className="flex space-x-2">
@@ -416,7 +418,7 @@ function MapLayerButton({ active, onClick, children }: MapLayerButtonProps) {
         <button
             className={`px-3 py-1 rounded text-sm ${
                 active
-                    ? 'bg-blue-800 text-white'
+                    ? 'bg-bland-dark-blue text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
             onClick={onClick}
@@ -439,53 +441,24 @@ function WorldMap({ activeLayer, onSelectCountry }: WorldMapProps) {
         <div className="w-full h-full bg-gray-50 rounded flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 opacity-10">
                 <img
-                    src="/api/placeholder/800/400"
+                    src="/world.svg"
                     alt="World Map Background"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full"
                 />
-            </div>
-
-            {/* Simulated map with a few interactive points */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/3">
-                <svg
-                    width="600"
-                    height="300"
-                    viewBox="0 0 800 400"
-                    className="opacity-80"
-                >
-                    <path
-                        d="M130,180 Q250,120 350,170 T550,190 T750,160"
-                        stroke="#0c2340"
-                        strokeWidth="1"
-                        fill="none"
-                    />
-                    <path
-                        d="M150,230 Q250,260 350,230 T550,240 T730,220"
-                        stroke="#0c2340"
-                        strokeWidth="1"
-                        fill="none"
-                    />
-                    <path
-                        d="M100,150 Q250,200 400,180 T600,170 T780,200"
-                        stroke="#0c2340"
-                        strokeWidth="1"
-                        fill="none"
-                    />
-                </svg>
             </div>
 
             {/* Brazil highlight */}
             <div
                 className="absolute cursor-pointer"
-                style={{ left: '35%', top: '60%' }}
+                style={{ left: '33%', top: '75%' }}
                 onClick={() => onSelectCountry('Brazil')}
             >
                 <div className="relative">
                     <MapPin
                         size={28}
-                        className="text-blue-900 -translate-x-1/2 -translate-y-full"
+                        className="text-bland-dark-blue -translate-x-1/2 -translate-y-full"
                     />
-                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-semibold text-blue-900 whitespace-nowrap bg-white px-2 py-1 rounded shadow-sm">
+                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-semibold text-bland-dark-blue whitespace-nowrap bg-white px-2 py-1 rounded shadow-sm">
                         Brazil
                     </div>
                 </div>
@@ -494,54 +467,54 @@ function WorldMap({ activeLayer, onSelectCountry }: WorldMapProps) {
             {/* USA point */}
             <div
                 className="absolute cursor-pointer"
-                style={{ left: '25%', top: '37%' }}
+                style={{ left: '20%', top: '47%' }}
                 onClick={() => onSelectCountry('United States')}
             >
                 <MapPin
                     size={22}
-                    className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full"
+                    className="text-gray-500 hover:text-bland-dark-blue -translate-x-1/2 -translate-y-full"
                 />
             </div>
 
             {/* Europe point */}
             <div
                 className="absolute cursor-pointer"
-                style={{ left: '52%', top: '35%' }}
+                style={{ left: '52%', top: '46%' }}
                 onClick={() => onSelectCountry('Germany')}
             >
                 <MapPin
                     size={22}
-                    className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full"
+                    className="text-gray-500 hover:text-bland-dark-blue -translate-x-1/2 -translate-y-full"
                 />
             </div>
 
             {/* Asia point */}
             <div
                 className="absolute cursor-pointer"
-                style={{ left: '70%', top: '40%' }}
+                style={{ left: '80%', top: '40%' }}
                 onClick={() => onSelectCountry('China')}
             >
                 <MapPin
                     size={22}
-                    className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full"
+                    className="text-gray-500 hover:text-bland-dark-blue -translate-x-1/2 -translate-y-full"
                 />
             </div>
 
             {/* Australia point */}
             <div
                 className="absolute cursor-pointer"
-                style={{ left: '78%', top: '65%' }}
+                style={{ left: '85%', top: '80%' }}
                 onClick={() => onSelectCountry('Australia')}
             >
                 <MapPin
                     size={22}
-                    className="text-gray-500 hover:text-blue-900 -translate-x-1/2 -translate-y-full"
+                    className="text-gray-500 hover:text-bland-dark-blue -translate-x-1/2 -translate-y-full"
                 />
             </div>
 
             {/* Map layer indicators */}
             <div className="absolute bottom-2 right-2 bg-white bg-opacity-80 p-2 rounded shadow-sm">
-                <div className="text-xs font-medium text-blue-900">
+                <div className="text-xs font-medium text-bland-dark-blue">
                     {activeLayer === 'temperature' && 'Temperature Map Layer'}
                     {activeLayer === 'precipitation' &&
                         'Precipitation Map Layer'}
@@ -567,6 +540,7 @@ function CountryDetails({ country }: CountryDetailsProps) {
         climateZones: string;
         carbonEmissions: string;
         renewableEnergy: string;
+        flag?: string;
     }
     const countryData: Record<string, CountryData> = {
         Brazil: {
@@ -578,6 +552,7 @@ function CountryDetails({ country }: CountryDetailsProps) {
             climateZones: '5 major zones',
             carbonEmissions: '2.2 tons per capita',
             renewableEnergy: '45% of total',
+            flag: '🇧🇷',
         },
         'United States': {
             solarRadiation: '4.8 kWh',
@@ -588,6 +563,7 @@ function CountryDetails({ country }: CountryDetailsProps) {
             climateZones: '7 major zones',
             carbonEmissions: '15.5 tons per capita',
             renewableEnergy: '20% of total',
+            flag: '🇺🇸',
         },
         Germany: {
             solarRadiation: '3.2 kWh',
@@ -598,6 +574,7 @@ function CountryDetails({ country }: CountryDetailsProps) {
             climateZones: '2 major zones',
             carbonEmissions: '8.4 tons per capita',
             renewableEnergy: '46% of total',
+            flag: '🇩🇪',
         },
         China: {
             solarRadiation: '4.6 kWh',
@@ -608,6 +585,7 @@ function CountryDetails({ country }: CountryDetailsProps) {
             climateZones: '5 major zones',
             carbonEmissions: '7.4 tons per capita',
             renewableEnergy: '29% of total',
+            flag: '🇨🇳',
         },
         Australia: {
             solarRadiation: '6.2 kWh',
@@ -618,6 +596,7 @@ function CountryDetails({ country }: CountryDetailsProps) {
             climateZones: '6 major zones',
             carbonEmissions: '15.2 tons per capita',
             renewableEnergy: '24% of total',
+            flag: '🇦🇺',
         },
     };
 
@@ -626,14 +605,10 @@ function CountryDetails({ country }: CountryDetailsProps) {
     return (
         <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold text-blue-900 text-lg">
+                <h3 className="font-semibold text-bland-dark-blue text-lg">
                     {country}
                 </h3>
-                <img
-                    src="/api/placeholder/30/20"
-                    alt={`${country} Flag`}
-                    className="h-5 w-8 object-cover"
-                />
+                <div className="text-2xl">{data.flag}</div>
             </div>
             <div className="space-y-3">
                 <CountryStat
@@ -674,7 +649,9 @@ function CountryStat({ label, value }: CountryStatProps) {
     return (
         <div className="flex justify-between items-center py-2 border-b border-gray-100">
             <div className="text-sm text-gray-600">{label}</div>
-            <div className="text-sm font-medium text-blue-900">{value}</div>
+            <div className="text-sm font-medium text-bland-dark-blue">
+                {value}
+            </div>
         </div>
     );
 }

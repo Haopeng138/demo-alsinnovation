@@ -17,104 +17,115 @@ import {
     Area,
 } from 'recharts';
 import {
-    TrendingUp,
-    Truck,
-    Package,
-    DollarSign,
+    Radio,
+    Tv,
+    Mic,
+    BarChart2,
     AlertTriangle,
     ArrowUp,
     ArrowDown,
-    Zap,
     Clock,
+    MessageCircle,
+    TrendingUp,
+    Globe,
+    User,
 } from 'lucide-react';
 
-// Datos simulados
-const demandData = [
-    { name: 'Ene', actual: 4000, prediccion: 4200, tendencia: 4100 },
-    { name: 'Feb', actual: 3000, prediccion: 3100, tendencia: 3200 },
-    { name: 'Mar', actual: 2000, prediccion: 2400, tendencia: 2300 },
-    { name: 'Abr', actual: 2780, prediccion: 2600, tendencia: 2700 },
-    { name: 'May', actual: 1890, prediccion: 2000, tendencia: 1950 },
-    { name: 'Jun', actual: 2390, prediccion: 2500, tendencia: 2450 },
-    { name: 'Jul', actual: 3490, prediccion: 3300, tendencia: 3400 },
-    { name: 'Ago', actual: null, prediccion: 3800, tendencia: 3700 },
-    { name: 'Sep', actual: null, prediccion: 4100, tendencia: 4000 },
+// Datos simulados para el observatorio de medios
+const coberturaTematicaData = [
+    { name: '8:00', rac1: 40, ser: 25, cope: 15, catalunya: 30, ondaCero: 20 },
+    { name: '9:00', rac1: 30, ser: 35, cope: 25, catalunya: 20, ondaCero: 30 },
+    { name: '10:00', rac1: 20, ser: 40, cope: 35, catalunya: 25, ondaCero: 40 },
+    { name: '11:00', rac1: 35, ser: 30, cope: 40, catalunya: 35, ondaCero: 25 },
+    { name: '12:00', rac1: 45, ser: 20, cope: 30, catalunya: 40, ondaCero: 35 },
+    { name: '13:00', rac1: 25, ser: 45, cope: 25, catalunya: 30, ondaCero: 40 },
+    { name: '14:00', rac1: 50, ser: 35, cope: 20, catalunya: 25, ondaCero: 30 },
 ];
 
-const inventarioData = [
-    { name: 'Producto A', value: 30, color: '#0088FE' },
-    { name: 'Producto B', value: 20, color: '#00C49F' },
-    { name: 'Producto C', value: 15, color: '#FFBB28' },
-    { name: 'Producto D', value: 35, color: '#FF8042' },
+const distribucionTematicaData = [
+    { name: 'Política', value: 35, color: '#0088FE' },
+    { name: 'Deportes', value: 25, color: '#00C49F' },
+    { name: 'Economía', value: 15, color: '#FFBB28' },
+    { name: 'Internacional', value: 10, color: '#FF8042' },
+    { name: 'Cultura', value: 8, color: '#8884d8' },
+    { name: 'Otros', value: 7, color: '#82ca9d' },
 ];
 
-const rutasData = [
-    { name: 'Ruta A', actual: 75, optimizada: 85 },
-    { name: 'Ruta B', actual: 60, optimizada: 78 },
-    { name: 'Ruta C', actual: 80, optimizada: 92 },
-    { name: 'Ruta D', actual: 55, optimizada: 70 },
-    { name: 'Ruta E', actual: 65, optimizada: 83 },
+const comparativaEmisorasData = [
+    { name: 'RAC1', politica: 35, deportes: 25, economia: 15, internacional: 10, cultura: 8 },
+    { name: 'SER', politica: 40, deportes: 20, economia: 18, internacional: 12, cultura: 5 },
+    { name: 'COPE', politica: 30, deportes: 30, economia: 10, internacional: 15, cultura: 10 },
+    { name: 'Cat Ràdio', politica: 38, deportes: 18, economia: 20, internacional: 14, cultura: 12 },
+    { name: 'Onda Cero', politica: 32, deportes: 28, economia: 15, internacional: 15, cultura: 10 },
+];
+
+const mencionesData = [
+    { name: 'Lun', rac1: 45, competencia: 38 },
+    { name: 'Mar', rac1: 48, competencia: 42 },
+    { name: 'Mié', rac1: 52, competencia: 48 },
+    { name: 'Jue', rac1: 50, competencia: 52 },
+    { name: 'Vie', rac1: 55, competencia: 50 },
+    { name: 'Sáb', rac1: 42, competencia: 45 },
+    { name: 'Dom', rac1: 38, competencia: 40 },
 ];
 
 const alertasData = [
     {
         id: 1,
-        tipo: 'Inventario bajo',
-        mensaje: 'Producto A por debajo del umbral crítico',
+        tipo: 'Tendencia emergente',
+        mensaje: 'Aumento significativo de menciones a "crisis energética" en SER y COPE',
         severidad: 'alta',
-        tiempo: '2h',
+        tiempo: '30m',
     },
     {
         id: 2,
-        tipo: 'Demanda anómala',
-        mensaje: 'Incremento inusual de demanda en región Norte',
-        severidad: 'media',
-        tiempo: '4h',
-    },
-    {
-        id: 3,
-        tipo: 'Retraso logístico',
-        mensaje: 'Posible congestión en ruta B',
+        tipo: 'Brecha de cobertura',
+        mensaje: 'Catalunya Ràdio dedicando 40% a economía local, sin cobertura en RAC1',
         severidad: 'media',
         tiempo: '1h',
     },
     {
+        id: 3,
+        tipo: 'Enfoque diferencial',
+        mensaje: 'Tono crítico en COPE sobre política gubernamental vs neutral en otras emisoras',
+        severidad: 'media',
+        tiempo: '2h',
+    },
+    {
         id: 4,
-        tipo: 'Predicción mercado',
-        mensaje: 'Tendencia alcista en Producto C',
+        tipo: 'Oportunidad editorial',
+        mensaje: 'Baja cobertura general sobre crisis climática, potencial nicho informativo',
         severidad: 'baja',
-        tiempo: '12h',
+        tiempo: '4h',
     },
 ];
 
-const tendenciaData = [
-    { name: 'Lun', demanda: 4000 },
-    { name: 'Mar', demanda: 4200 },
-    { name: 'Mié', demanda: 4500 },
-    { name: 'Jue', demanda: 4800 },
-    { name: 'Vie', demanda: 5100 },
-    { name: 'Sáb', demanda: 5300 },
-    { name: 'Dom', demanda: 5600 },
+const sentimientoData = [
+    { name: 'RAC1', positivo: 40, neutral: 45, negativo: 15 },
+    { name: 'SER', positivo: 30, neutral: 50, negativo: 20 },
+    { name: 'COPE', positivo: 25, neutral: 45, negativo: 30 },
+    { name: 'Cat Ràdio', positivo: 35, neutral: 50, negativo: 15 },
+    { name: 'Onda Cero', positivo: 30, neutral: 55, negativo: 15 },
 ];
 
-export default function IADashboard() {
+export default function ObservatorioMediaDashboard() {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Contenido principal del dashboard */}
             <main className="mx-auto px-8 py-4">
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                        Panel de Control Predictivo
+                        Observatorio Competitivo de Medios
                     </h2>
 
-                    {/* Tarjetas de KPIs - Ahora en la parte superior */}
+                    {/* Tarjetas de KPIs */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                         <KpiCard
-                            title="Predicción Demanda"
-                            value="↑ 15.2%"
-                            subtitle="Crecimiento previsto"
+                            title="Menciones Grupo Godó"
+                            value="↑ 12.5%"
+                            subtitle="vs. semana anterior"
                             icon={
-                                <TrendingUp
+                                <MessageCircle
                                     size={24}
                                     className="text-indigo-500"
                                 />
@@ -123,31 +134,31 @@ export default function IADashboard() {
                             bgColor="bg-indigo-50"
                         />
                         <KpiCard
-                            title="Eficiencia Logística"
-                            value="92.4%"
-                            subtitle="Con optimización IA"
+                            title="Cobertura Política"
+                            value="35.8%"
+                            subtitle="del tiempo total"
                             icon={
-                                <Truck size={24} className="text-green-500" />
+                                <Globe size={24} className="text-green-500" />
                             }
                             trend="up"
                             bgColor="bg-green-50"
                         />
                         <KpiCard
-                            title="Stock Óptimo"
-                            value="87.6%"
-                            subtitle="Nivel de inventario"
+                            title="Sentimiento Positivo"
+                            value="42.6%"
+                            subtitle="en RAC1 hoy"
                             icon={
-                                <Package size={24} className="text-blue-500" />
+                                <User size={24} className="text-blue-500" />
                             }
                             trend="down"
                             bgColor="bg-blue-50"
                         />
                         <KpiCard
-                            title="ROI Proyectado"
-                            value="$68.3K"
-                            subtitle="Ahorro trimestral"
+                            title="Temas Exclusivos"
+                            value="8"
+                            subtitle="no tratados por competencia"
                             icon={
-                                <DollarSign
+                                <TrendingUp
                                     size={24}
                                     className="text-purple-500"
                                 />
@@ -157,7 +168,7 @@ export default function IADashboard() {
                         />
                     </div>
 
-                    {/* Panel de Alertas - Ahora más prominente */}
+                    {/* Panel de Alertas */}
                     <div className="bg-white rounded-lg shadow-md p-4 mb-8">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold flex items-center">
@@ -165,7 +176,7 @@ export default function IADashboard() {
                                     size={20}
                                     className="text-orange-500 mr-2"
                                 />
-                                Alertas Predictivas en Tiempo Real
+                                Alertas de Monitoreo en Tiempo Real
                             </h3>
                             <div className="bg-orange-100 text-orange-700 py-1 px-3 rounded-full text-sm font-medium">
                                 4 Alertas activas
@@ -202,16 +213,16 @@ export default function IADashboard() {
 
                     {/* Gráficos principales en layout horizontal */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                        {/* Gráfico de predicción vs demanda real */}
+                        {/* Gráfico de Cobertura Temática por Hora */}
                         <div className="bg-white rounded-lg shadow-md p-4">
                             <h3 className="text-lg font-semibold mb-4 flex items-center">
-                                <Zap size={20} className="text-blue-500 mr-2" />
-                                Análisis Predictivo de Demanda
+                                <Radio size={20} className="text-blue-500 mr-2" />
+                                Cobertura Política por Hora del Día
                             </h3>
                             <div className="h-80">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <LineChart
-                                        data={demandData}
+                                        data={coberturaTematicaData}
                                         margin={{
                                             top: 5,
                                             right: 30,
@@ -224,52 +235,74 @@ export default function IADashboard() {
                                             stroke="#f0f0f0"
                                         />
                                         <XAxis dataKey="name" />
-                                        <YAxis />
+                                        <YAxis
+                                            label={{ 
+                                                value: '% del tiempo', 
+                                                angle: -90, 
+                                                position: 'insideLeft' 
+                                            }}
+                                        />
                                         <Tooltip />
                                         <Legend />
                                         <Line
                                             type="monotone"
-                                            dataKey="actual"
+                                            dataKey="rac1"
                                             stroke="#3b82f6"
-                                            name="Demanda Real"
+                                            name="RAC1"
                                             strokeWidth={2}
                                             dot={{ r: 4 }}
                                         />
                                         <Line
                                             type="monotone"
-                                            dataKey="prediccion"
+                                            dataKey="ser"
                                             stroke="#10b981"
-                                            name="Predicción IA"
+                                            name="SER"
                                             strokeWidth={2}
                                             dot={{ r: 4 }}
                                         />
                                         <Line
                                             type="monotone"
-                                            dataKey="tendencia"
-                                            stroke="#6366f1"
-                                            strokeDasharray="3 3"
-                                            name="Tendencia"
+                                            dataKey="cope"
+                                            stroke="#f59e0b"
+                                            name="COPE"
                                             strokeWidth={2}
+                                            dot={{ r: 4 }}
+                                        />
+                                        <Line
+                                            type="monotone"
+                                            dataKey="catalunya"
+                                            stroke="#8b5cf6"
+                                            name="Catalunya Ràdio"
+                                            strokeWidth={2}
+                                            dot={{ r: 4 }}
+                                        />
+                                        <Line
+                                            type="monotone"
+                                            dataKey="ondaCero"
+                                            stroke="#ef4444"
+                                            name="Onda Cero"
+                                            strokeWidth={2}
+                                            dot={{ r: 4 }}
                                         />
                                     </LineChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
-                        {/* Gráfico de distribución de inventario */}
+                        {/* Gráfico de distribución temática */}
                         <div className="bg-white rounded-lg shadow-md p-4">
                             <h3 className="text-lg font-semibold mb-4 flex items-center">
-                                <Package
+                                <BarChart2 
                                     size={20}
                                     className="text-green-500 mr-2"
                                 />
-                                Distribución Óptima de Inventario
+                                Distribución Temática en RAC1 (Hoy)
                             </h3>
                             <div className="h-80">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <PieChart>
                                         <Pie
-                                            data={inventarioData}
+                                            data={distribucionTematicaData}
                                             cx="50%"
                                             cy="50%"
                                             innerRadius={70}
@@ -280,7 +313,7 @@ export default function IADashboard() {
                                                 `${name}: ${(percent * 100).toFixed(0)}%`
                                             }
                                         >
-                                            {inventarioData.map(
+                                            {distribucionTematicaData.map(
                                                 (entry, index) => (
                                                     <Cell
                                                         key={`cell-${index}`}
@@ -291,8 +324,8 @@ export default function IADashboard() {
                                         </Pie>
                                         <Tooltip
                                             formatter={(value) => [
-                                                `${value} unidades`,
-                                                'Cantidad',
+                                                `${value}%`,
+                                                'Tiempo dedicado',
                                             ]}
                                         />
                                         <Legend />
@@ -304,19 +337,19 @@ export default function IADashboard() {
 
                     {/* Fila de gráficos adicionales */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        {/* Optimización de rutas logísticas */}
+                        {/* Comparativa de emisoras */}
                         <div className="bg-white rounded-lg shadow-md p-4 lg:col-span-2">
                             <h3 className="text-lg font-semibold mb-4 flex items-center">
-                                <Truck
+                                <Mic
                                     size={20}
                                     className="text-indigo-500 mr-2"
                                 />
-                                Optimización Inteligente de Rutas
+                                Comparativa de Cobertura Temática por Emisora
                             </h3>
                             <div className="h-72">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart
-                                        data={rutasData}
+                                        data={comparativaEmisorasData}
                                         margin={{
                                             top: 5,
                                             right: 30,
@@ -329,19 +362,48 @@ export default function IADashboard() {
                                             stroke="#f0f0f0"
                                         />
                                         <XAxis dataKey="name" />
-                                        <YAxis />
+                                        <YAxis 
+                                            label={{ 
+                                                value: '% del tiempo', 
+                                                angle: -90,
+                                                position: 'insideLeft' 
+                                            }}
+                                        />
                                         <Tooltip />
                                         <Legend />
                                         <Bar
-                                            dataKey="actual"
-                                            name="Eficiencia Actual"
-                                            fill="#94a3b8"
+                                            dataKey="politica"
+                                            name="Política"
+                                            stackId="a"
+                                            fill="#0088FE"
                                             radius={[4, 4, 0, 0]}
                                         />
                                         <Bar
-                                            dataKey="optimizada"
-                                            name="Con IA Predictiva"
-                                            fill="#6366f1"
+                                            dataKey="deportes"
+                                            name="Deportes"
+                                            stackId="a"
+                                            fill="#00C49F"
+                                            radius={[4, 4, 0, 0]}
+                                        />
+                                        <Bar
+                                            dataKey="economia"
+                                            name="Economía"
+                                            stackId="a"
+                                            fill="#FFBB28"
+                                            radius={[4, 4, 0, 0]}
+                                        />
+                                        <Bar
+                                            dataKey="internacional"
+                                            name="Internacional"
+                                            stackId="a"
+                                            fill="#FF8042"
+                                            radius={[4, 4, 0, 0]}
+                                        />
+                                        <Bar
+                                            dataKey="cultura"
+                                            name="Cultura"
+                                            stackId="a"
+                                            fill="#8884d8"
                                             radius={[4, 4, 0, 0]}
                                         />
                                     </BarChart>
@@ -349,41 +411,54 @@ export default function IADashboard() {
                             </div>
                         </div>
 
-                        {/* Predicción de tendencias */}
+                        {/* Análisis de sentimiento */}
                         <div className="bg-white rounded-lg shadow-md p-4">
                             <h3 className="text-lg font-semibold mb-4 flex items-center">
-                                <TrendingUp
+                                <MessageCircle
                                     size={20}
                                     className="text-purple-500 mr-2"
                                 />
-                                Predicción de Tendencias
+                                Análisis de Sentimiento por Emisora
                             </h3>
                             <div className="h-72">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <AreaChart
-                                        data={tendenciaData}
+                                    <BarChart
+                                        data={sentimientoData}
                                         margin={{
                                             top: 5,
                                             right: 20,
                                             left: 20,
                                             bottom: 5,
                                         }}
+                                        layout="vertical"
                                     >
                                         <CartesianGrid
                                             strokeDasharray="3 3"
                                             stroke="#f0f0f0"
                                         />
-                                        <XAxis dataKey="name" />
-                                        <YAxis />
+                                        <XAxis type="number" />
+                                        <YAxis dataKey="name" type="category" />
                                         <Tooltip />
-                                        <Area
-                                            type="monotone"
-                                            dataKey="demanda"
-                                            stroke="#8b5cf6"
-                                            fill="#c4b5fd"
-                                            name="Tendencia Prevista"
+                                        <Legend />
+                                        <Bar
+                                            dataKey="positivo"
+                                            name="Positivo"
+                                            stackId="a"
+                                            fill="#4ade80"
                                         />
-                                    </AreaChart>
+                                        <Bar
+                                            dataKey="neutral"
+                                            name="Neutral"
+                                            stackId="a"
+                                            fill="#94a3b8"
+                                        />
+                                        <Bar
+                                            dataKey="negativo"
+                                            name="Negativo"
+                                            stackId="a"
+                                            fill="#f87171"
+                                        />
+                                    </BarChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>

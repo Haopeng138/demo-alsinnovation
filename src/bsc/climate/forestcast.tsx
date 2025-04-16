@@ -22,6 +22,7 @@ import {
     ChevronDown,
     Search,
 } from 'lucide-react';
+import { Footer } from '@/components/footer';
 
 // Datos simplificados
 const weatherImpactData = [
@@ -63,12 +64,12 @@ export default function ClimateForecasts() {
     const [selectedRegion, setSelectedRegion] = useState('Global');
 
     return (
-        <div className="min-h-screen bg-gray-50 text-gray-900">
+        <div className="min-h-screen bg-gray-50 text-bland-dark-blue">
             <main className="px-8 py-4">
                 <div className="mx-auto">
                     {/* Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                        <h1 className="text-2xl font-bold text-blue-900 mb-4 md:mb-0">
+                        <h1 className="text-2xl font-bold text-bland-dark-blue mb-4 md:mb-0">
                             Climate Forecasts & Business Impact
                         </h1>
                         <div className="flex space-x-3">
@@ -115,7 +116,7 @@ export default function ClimateForecasts() {
                     {/* Business Impact Chart */}
                     <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="font-semibold text-blue-900 text-lg">
+                            <h2 className="font-semibold text-bland-dark-blue text-lg">
                                 Impacto del clima en KPIs de negocio
                             </h2>
                             <button className="p-1 hover:bg-gray-100 rounded">
@@ -163,7 +164,7 @@ export default function ClimateForecasts() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                         {/* Risk Matrix */}
                         <div className="bg-white rounded-lg shadow-sm p-4">
-                            <h2 className="font-semibold text-blue-900 mb-4">
+                            <h2 className="font-semibold text-bland-dark-blue mb-4">
                                 Matriz de riesgo climático
                             </h2>
                             <div className="h-64">
@@ -233,7 +234,7 @@ export default function ClimateForecasts() {
 
                         {/* Temperature Impact */}
                         <div className="bg-white rounded-lg shadow-sm p-4">
-                            <h2 className="font-semibold text-blue-900 mb-4">
+                            <h2 className="font-semibold text-bland-dark-blue mb-4">
                                 Optimizador de procesos por temperatura
                             </h2>
                             <div className="h-64">
@@ -290,7 +291,7 @@ export default function ClimateForecasts() {
 
                     {/* Carbon Emissions */}
                     <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-                        <h2 className="font-semibold text-blue-900 mb-4">
+                        <h2 className="font-semibold text-bland-dark-blue0 mb-4">
                             Emisiones de carbono y oportunidades de reducción
                         </h2>
                         <div className="h-64">
@@ -340,94 +341,8 @@ export default function ClimateForecasts() {
                     </div>
                 </div>
             </main>
-            <footer className="bg-blue-900 text-white py-4 text-center text-sm">
-                <div className="max-w-7xl mx-auto">
-                    © 2025 Arm's Length Services. All rights reserved.
-                </div>
-            </footer>
+            <Footer></Footer>
         </div>
-    );
-}
-
-// Add these components from prueba.tsx
-// ALS Logo Component
-function ALSLogo() {
-    return (
-        <div className="flex items-center space-x-2">
-            <svg
-                width="36"
-                height="36"
-                viewBox="0 0 100 36"
-                className="text-blue-900"
-            >
-                <g fill="currentColor">
-                    <path d="M12.2,0L0,35.8h5.9l2.4-7.1h11.4l2.4,7.1h5.9L16.4,0H12.2z M9.8,23.9l4-11.6l4,11.6H9.8z" />
-                    <path d="M30.7,0v35.8h5.3V0H30.7z" />
-                    <path d="M56.4,0h-5l-10.8,16v-16h-5.3v35.8h5.3V21.4l11.1,14.4h6.3L46.4,19.8L56.4,0z" />
-                </g>
-            </svg>
-            <div className="flex flex-col">
-                <span className="font-bold text-blue-900 text-lg">
-                    Arm's Length
-                </span>
-                <span className="font-bold text-blue-900 text-xs -mt-1">
-                    Services Innovation
-                </span>
-            </div>
-        </div>
-    );
-}
-
-export function Header() {
-    return (
-        <header className="bg-white shadow-sm sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
-                    <div className="flex items-center">
-                        <ALSLogo />
-                    </div>
-                    <nav className="hidden md:flex space-x-8">
-                        <NavLink href="#" active>
-                            Dashboard
-                        </NavLink>
-                        <NavLink href="#">Historic Data</NavLink>
-                        <NavLink href="#">Forecasts</NavLink>
-                        <NavLink href="#">Reports</NavLink>
-                        <NavLink href="#">Settings</NavLink>
-                    </nav>
-                    <div className="flex items-center bg-gray-100 rounded-md px-3 py-2">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="bg-transparent border-none focus:outline-none text-sm w-40"
-                        />
-                        <Search size={16} className="text-gray-500" />
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
-}
-
-interface NavLinkProps {
-    href: string;
-    active?: boolean;
-    children: React.ReactNode;
-}
-
-// Navigation Link Component
-function NavLink({ href, active, children }: NavLinkProps) {
-    return (
-        <a
-            href={href}
-            className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
-                active
-                    ? 'text-blue-900 border-b-2 border-blue-900'
-                    : 'text-gray-500 hover:text-gray-700 hover:border-b-2 hover:border-gray-300'
-            }`}
-        >
-            {children}
-        </a>
     );
 }
 

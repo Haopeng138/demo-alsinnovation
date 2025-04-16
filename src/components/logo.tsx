@@ -1,6 +1,10 @@
 import svglogo from '@/assets/alslogo.svg';
 
-export function Logo() {
+interface LogoProps {
+    isDarkMode?: boolean;
+}
+
+export function Logo({ isDarkMode }: LogoProps) {
     return (
         <img
             src={svglogo}

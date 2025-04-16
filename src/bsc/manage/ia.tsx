@@ -27,6 +27,7 @@ import {
     Zap,
     Clock,
 } from 'lucide-react';
+import { Footer } from '@/components/footer';
 
 // Datos simulados
 const demandData = [

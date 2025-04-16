@@ -13,6 +13,7 @@ import { Download, Maximize2, MapPin, ChevronDown } from 'lucide-react';
 import Header from '@/components/header';
 import { Route, Routes } from 'react-router';
 import ClimateForecasts from './forestcast';
+import { Footer } from '@/components/footer';
 
 // Dummy data for charts
 const temperatureData = [
@@ -87,6 +88,7 @@ export default function ClimateAnalyticsDashboard() {
                     element={<ClimateForecasts></ClimateForecasts>}
                 ></Route>
             </Routes>
+            <Footer></Footer>
         </div>
     );
 }

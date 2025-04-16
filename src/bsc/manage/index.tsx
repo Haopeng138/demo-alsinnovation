@@ -40,6 +40,7 @@ import {
 import Header from '@/components/header';
 import { Route, Routes } from 'react-router';
 import IADashboard from './ia';
+import { Footer } from '@/components/footer';
 
 // Datos simulados
 const productos = [
@@ -210,7 +211,7 @@ export default function ProductAnalysisDashboard() {
                                 <h2 className="text-xl font-bold text-gray-800 mr-4">
                                     Análisis Predictivo Avanzado
                                 </h2>
-                                <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                                <span className="bg-blue-100 text-bland-dark-blue text-xs font-medium px-2.5 py-0.5 rounded">
                                     Inteligencia Artificial
                                 </span>
                             </div>
@@ -229,7 +230,7 @@ export default function ProductAnalysisDashboard() {
                                     />
                                 </div>
                                 <div className="flex space-x-2">
-                                    <button className="flex items-center justify-center px-3 py-2 bg-blue-50 text-blue-700 rounded-md border border-blue-200">
+                                    <button className="flex items-center justify-center px-3 py-2 bg-blue-50 text-bland-dark-blue rounded-md border border-blue-200">
                                         <Filter size={16} className="mr-2" />
                                         <span>Filtros</span>
                                         <ChevronDown
@@ -366,7 +367,7 @@ export default function ProductAnalysisDashboard() {
                                     <h3 className="text-xl font-bold text-gray-800">
                                         {selectedProduct.nombre}
                                     </h3>
-                                    <span className="ml-3 bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                                    <span className="ml-3 bg-blue-100 text-bland-dark-blue text-xs font-medium px-2.5 py-0.5 rounded">
                                         {selectedProduct.categoria}
                                     </span>
                                     <span className="ml-2 text-sm text-gray-500">
@@ -378,7 +379,7 @@ export default function ProductAnalysisDashboard() {
                                 </p>
                             </div>
                             <div className="flex items-center mt-4 md:mt-0">
-                                <button className="flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 mr-2">
+                                <button className="flex items-center justify-center px-4 py-2 bg-bland-dark-blue text-white rounded-md hover:bg-bland-light-blue mr-2 hover:text-bland-dark-blue">
                                     <Maximize2 size={16} className="mr-2" />
                                     Ver detalles completos
                                 </button>
@@ -461,7 +462,7 @@ export default function ProductAnalysisDashboard() {
                                 <h4 className="text-md font-semibold mb-4 flex items-center">
                                     <Zap
                                         size={18}
-                                        className="text-blue-600 mr-2"
+                                        className="text-bland-dark-blue mr-2"
                                     />
                                     Predicción de Demanda Futura
                                 </h4>
@@ -797,17 +798,17 @@ export default function ProductAnalysisDashboard() {
                         </div>
 
                         {/* Panel de recomendaciones basadas en IA */}
-                        <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-4 mt-6">
-                            <h4 className="text-md font-semibold mb-3 flex items-center text-indigo-800">
+                        <div className="bg-bland-dark-blue border border-indigo-100 rounded-lg p-4 mt-6">
+                            <h4 className="text-md font-semibold mb-3 flex items-center text-bland-blue">
                                 <Zap
                                     size={18}
-                                    className="text-indigo-600 mr-2"
+                                    className="text-bland-blue mr-2"
                                 />
                                 Recomendaciones Estratégicas basadas en IA
                             </h4>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div className="bg-white rounded-lg p-3 shadow-sm">
-                                    <h5 className="text-sm font-medium text-indigo-700 mb-2">
+                                    <h5 className="text-sm font-medium text-bland-blue mb-2">
                                         Gestión de Inventario
                                     </h5>
                                     <p className="text-sm text-gray-600">
@@ -825,7 +826,7 @@ export default function ProductAnalysisDashboard() {
                                     </div>
                                 </div>
                                 <div className="bg-white rounded-lg p-3 shadow-sm">
-                                    <h5 className="text-sm font-medium text-indigo-700 mb-2">
+                                    <h5 className="text-sm font-medium text-bland-blue mb-2">
                                         Estrategia de Precios
                                     </h5>
                                     <p className="text-sm text-gray-600">
@@ -843,7 +844,7 @@ export default function ProductAnalysisDashboard() {
                                     </div>
                                 </div>
                                 <div className="bg-white rounded-lg p-3 shadow-sm">
-                                    <h5 className="text-sm font-medium text-indigo-700 mb-2">
+                                    <h5 className="text-sm font-medium text-bland-blue mb-2">
                                         Optimización Logística
                                     </h5>
                                     <p className="text-sm text-gray-600">
@@ -882,7 +883,7 @@ export default function ProductAnalysisDashboard() {
                 <Route path="/" element={<Dashborad></Dashborad>} />
                 <Route path="ia" element={<IADashboard></IADashboard>} />
             </Routes>
-
+            <Footer></Footer>
             {/* Panel de control y filtros */}
         </div>
     );

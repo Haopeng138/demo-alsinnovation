@@ -25,37 +25,66 @@ import {
 import { Footer } from '@/components/footer';
 
 // Datos simplificados
+// Datos de impacto climático en producción y logística (basado en región mediterránea)
 const weatherImpactData = [
-    { month: 'May', temp: 23.5, precip: 82, production: 95, logistics: 92 },
-    { month: 'Jun', temp: 26.1, precip: 65, production: 93, logistics: 90 },
-    { month: 'Jul', temp: 28.4, precip: 42, production: 88, logistics: 85 },
-    { month: 'Aug', temp: 29.2, precip: 30, production: 83, logistics: 78 },
-    { month: 'Sep', temp: 27.5, precip: 45, production: 85, logistics: 82 },
-    { month: 'Oct', temp: 24.8, precip: 72, production: 90, logistics: 87 },
+    { month: 'May', temp: 21.8, precip: 58, production: 92, logistics: 88 },
+    { month: 'Jun', temp: 26.5, precip: 32, production: 88, logistics: 82 },
+    { month: 'Jul', temp: 30.2, precip: 12, production: 79, logistics: 75 },
+    { month: 'Aug', temp: 31.7, precip: 8, production: 72, logistics: 68 },
+    { month: 'Sep', temp: 27.9, precip: 38, production: 82, logistics: 78 },
+    { month: 'Oct', temp: 23.4, precip: 84, production: 87, logistics: 83 },
 ];
 
+// Riesgos climáticos con probabilidades e impactos más realistas
 const climateRiskData = [
-    { name: 'Sequía', probability: 0.23, impact: 85, radius: 30 },
-    { name: 'Inundaciones', probability: 0.18, impact: 78, radius: 25 },
-    { name: 'Olas de calor', probability: 0.35, impact: 62, radius: 35 },
-    { name: 'Tormentas', probability: 0.15, impact: 90, radius: 22 },
+    { name: 'Sequía', probability: 0.28, impact: 82, radius: 45 },
+    { name: 'Inundaciones', probability: 0.15, impact: 75, radius: 30 },
+    { name: 'Olas de calor', probability: 0.42, impact: 68, radius: 50 },
+    { name: 'Tormentas severas', probability: 0.12, impact: 88, radius: 28 },
+    { name: 'Heladas tardías', probability: 0.08, impact: 65, radius: 20 },
 ];
 
+// Impacto de temperatura en eficiencia y costos (curva más realista)
 const temperatureImpactData = [
-    { temp: 15, efficiency: 82, cost: 95 },
-    { temp: 21, efficiency: 95, cost: 88 },
-    { temp: 27, efficiency: 94, cost: 87 },
-    { temp: 33, efficiency: 75, cost: 98 },
+    { temp: 10, efficiency: 78, cost: 102 },
+    { temp: 15, efficiency: 85, cost: 97 },
+    { temp: 20, efficiency: 94, cost: 89 },
+    { temp: 25, efficiency: 96, cost: 86 },
+    { temp: 30, efficiency: 88, cost: 93 },
+    { temp: 35, efficiency: 72, cost: 107 },
+    { temp: 40, efficiency: 60, cost: 120 },
 ];
 
+// Emisiones de carbono por sector (valores más detallados)
 const carbonEmissionsData = [
-    { name: 'Manufactura', value: 40 },
-    { name: 'Logística', value: 25 },
-    { name: 'Oficinas', value: 15 },
-    { name: 'Viajes', value: 12 },
-    { name: 'Otros', value: 8 },
+    {
+        name: 'Manufactura',
+        value: 38.5,
+        subcategories: [
+            { name: 'Procesos industriales', value: 22 },
+            { name: 'Consumo energético', value: 16.5 },
+        ],
+    },
+    {
+        name: 'Logística',
+        value: 27.2,
+        subcategories: [
+            { name: 'Transporte terrestre', value: 18 },
+            { name: 'Transporte marítimo', value: 6.5 },
+            { name: 'Transporte aéreo', value: 2.7 },
+        ],
+    },
+    {
+        name: 'Instalaciones',
+        value: 18.3,
+        subcategories: [
+            { name: 'Calefacción/refrigeración', value: 12 },
+            { name: 'Electricidad', value: 6.3 },
+        ],
+    },
+    { name: 'Cadena de suministro', value: 11.7 },
+    { name: 'Residuos', value: 4.3 },
 ];
-
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
 // Remove or comment out the existing header in the ClimateForecasts component

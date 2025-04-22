@@ -105,6 +105,12 @@ export default function Chatbot() {
         scrollToBottom();
     }, [mensajes, streamedResponse]);
 
+    const links: Record<string, string> = {
+        'Ver artículo original':
+            'https://stories.lavanguardia.com/vida/20220724/55842/barcelona-92-juegos-olimpicos-cambios-ciudad',
+        'Sí, por favor':
+            'https://www.lavanguardia.com/cultura/20120310/54267072394/barcelona-1970-1980-musicales-creativas.html',
+    };
     return (
         <div className="flex flex-col h-screen bg-white">
             {/* Header del chatbot */}
@@ -194,7 +200,34 @@ export default function Chatbot() {
                                     }`}
                                 >
                                     {msg.content.split('\n').map((line, i) => (
-                                        <div key={i}>{line}</div>
+                                        <div key={i}>
+                                            {line
+                                                .split(/(\[.*?\])/g)
+                                                .map((part, index) => {
+                                                    if (
+                                                        part.startsWith('[') &&
+                                                        part.endsWith(']')
+                                                    ) {
+                                                        const text = part.slice(
+                                                            1,
+                                                            -1
+                                                        );
+                                                        return (
+                                                            <a
+                                                                key={index}
+                                                                href={
+                                                                    links[text]
+                                                                }
+                                                                className="text-bland-blue underline hover:text-bland-blue"
+                                                            >
+                                                                {text}
+                                                            </a>
+                                                        );
+                                                    } else {
+                                                        return part;
+                                                    }
+                                                })}
+                                        </div>
                                     ))}
                                 </div>
                             </div>

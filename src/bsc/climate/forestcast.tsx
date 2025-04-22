@@ -20,9 +20,9 @@ import {
     Zap,
     TrendingUp,
     ChevronDown,
-    Search,
 } from 'lucide-react';
-import { Footer } from '@/components/footer';
+
+import { RegionalClimateAnalysis } from './component/regional';
 
 // Datos simplificados
 // Datos de impacto climático en producción y logística (basado en región mediterránea)
@@ -190,76 +190,9 @@ export default function ClimateForecasts() {
                     </div>
 
                     {/* Two Column Section */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
                         {/* Risk Matrix */}
-                        <div className="bg-white rounded-lg shadow-sm p-4">
-                            <h2 className="font-semibold text-bland-dark-blue mb-4">
-                                Matriz de riesgo climático
-                            </h2>
-                            <div className="h-64">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <ScatterChart
-                                        margin={{
-                                            top: 20,
-                                            right: 20,
-                                            bottom: 20,
-                                            left: 20,
-                                        }}
-                                    >
-                                        <CartesianGrid
-                                            strokeDasharray="3 3"
-                                            strokeOpacity={0.1}
-                                        />
-                                        <XAxis
-                                            type="number"
-                                            dataKey="probability"
-                                            name="Probabilidad"
-                                            tickFormatter={(val) =>
-                                                `${Math.round(val * 100)}%`
-                                            }
-                                        />
-                                        <YAxis
-                                            type="number"
-                                            dataKey="impact"
-                                            name="Impacto"
-                                        />
-                                        <Tooltip
-                                            formatter={(value, name) =>
-                                                name === 'probability'
-                                                    ? [
-                                                          `${(Number(value) * 100).toFixed(0)}%`,
-                                                          'Probabilidad',
-                                                      ]
-                                                    : [
-                                                          `${value}/100`,
-                                                          'Impacto',
-                                                      ]
-                                            }
-                                        />
-                                        <Legend />
-                                        <Scatter
-                                            name="Riesgos climáticos"
-                                            data={climateRiskData}
-                                            fill="#8884d8"
-                                        >
-                                            {climateRiskData.map(
-                                                (_entry, index) => (
-                                                    <Cell
-                                                        key={`cell-${index}`}
-                                                        fill={
-                                                            COLORS[
-                                                                index %
-                                                                    COLORS.length
-                                                            ]
-                                                        }
-                                                    />
-                                                )
-                                            )}
-                                        </Scatter>
-                                    </ScatterChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
+                        <RegionalClimateAnalysis></RegionalClimateAnalysis>
 
                         {/* Temperature Impact */}
                         <div className="bg-white rounded-lg shadow-sm p-4">
@@ -273,16 +206,21 @@ export default function ClimateForecasts() {
                                             strokeDasharray="3 3"
                                             strokeOpacity={0.1}
                                         />
+                                        <Legend
+                                            width={600}
+                                            verticalAlign="top"
+                                        />
                                         <XAxis
                                             dataKey="temp"
                                             label={{
                                                 value: 'Temperatura (°C)',
-                                                position: 'bottom',
+                                                position: 'insideBottom',
+                                                offset: -2,
                                             }}
                                         />
                                         <YAxis domain={[60, 110]} />
                                         <Tooltip />
-                                        <Legend />
+
                                         <Line
                                             type="monotone"
                                             dataKey="efficiency"
@@ -370,7 +308,6 @@ export default function ClimateForecasts() {
                     </div>
                 </div>
             </main>
-            <Footer></Footer>
         </div>
     );
 }
@@ -381,7 +318,11 @@ interface SelectDropdownProps {
     onChange: (value: string) => void;
 }
 
-function SelectDropdown({ options, value, onChange }: SelectDropdownProps) {
+export function SelectDropdown({
+    options,
+    value,
+    onChange,
+}: SelectDropdownProps) {
     return (
         <div className="relative">
             <select

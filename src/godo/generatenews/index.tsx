@@ -1,7 +1,7 @@
 import { Footer } from '@/components/footer';
 import Header from '@/components/header';
 import React, { useState } from 'react';
-import { FaRegFileWord } from 'react-icons/fa';
+import { FaRegFileWord, FaSpinner } from 'react-icons/fa';
 
 // Type definitions
 type MediaType = 'la-vanguardia' | 'mundo-deportivo' | 'rac1';
@@ -87,10 +87,15 @@ export default function GenerateNews() {
             });
         }
     };
-
+    const [isGenerating, setIsGenerating] = useState(false);
     const handleGenerate = () => {
-        const content = generateContent(formData);
-        setGeneratedContent(content);
+        setIsGenerating(true);
+        setGeneratedContent(''); // Optional: Clear previous content while loading
+        setTimeout(() => {
+            const content = generateContent(formData);
+            setGeneratedContent(content);
+            setIsGenerating(false);
+        }, 3000); // 3 seconds fake loading
     };
 
     const isStepValid = () => {
@@ -419,16 +424,22 @@ export default function GenerateNews() {
                             Paso 4 – Vista previa y publicación
                         </h2>
 
-                        <div className="bg-gray-50 p-6 rounded-lg border border-gray-300">
-                            {generatedContent && (
-                                <div className="flex items-center gap-2 p-2 border rounded-md shadow-sm">
-                                    <FaRegFileWord />
-                                    <span className="text-base font-medium">
-                                        Fallece el Papa Francisco.docx
-                                    </span>
-                                </div>
-                            )}
-                        </div>
+                        {generatedContent && (
+                            <div className="flex items-center gap-2 p-2 border rounded-md shadow-sm">
+                                <FaRegFileWord />
+                                <span className="text-base font-medium">
+                                    Fallece el Papa Francisco.docx
+                                </span>
+                            </div>
+                        )}
+                        {isGenerating && (
+                            <div className="flex items-center gap-2 p-2 border rounded-md justify-center">
+                                <FaSpinner className="animate-spin text-2xl text-bland-dark-blue" />
+                                <span className="text-base font-medium">
+                                    Generando contenido...
+                                </span>
+                            </div>
+                        )}
 
                         <div className="flex gap-4">
                             <button

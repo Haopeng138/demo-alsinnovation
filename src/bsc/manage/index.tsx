@@ -883,7 +883,7 @@ export default function ProductAnalysisDashboard() {
                 <Route path="/" element={<Dashborad></Dashborad>} />
                 <Route path="ia" element={<IADashboard></IADashboard>} />
             </Routes>
-            <Footer title="Mobility Insights"></Footer>
+            <Footer title="Predictive Analytics"></Footer>
             {/* Panel de control y filtros */}
         </div>
     );

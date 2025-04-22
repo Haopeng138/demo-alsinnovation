@@ -13,12 +13,9 @@ import {
     Tooltip,
     Legend,
     ResponsiveContainer,
-    AreaChart,
-    Area,
 } from 'recharts';
 import {
     Radio,
-    Tv,
     Mic,
     BarChart2,
     AlertTriangle,
@@ -52,49 +49,78 @@ const distribucionTematicaData = [
 ];
 
 const comparativaEmisorasData = [
-    { name: 'RAC1', politica: 35, deportes: 25, economia: 15, internacional: 10, cultura: 8 },
-    { name: 'SER', politica: 40, deportes: 20, economia: 18, internacional: 12, cultura: 5 },
-    { name: 'COPE', politica: 30, deportes: 30, economia: 10, internacional: 15, cultura: 10 },
-    { name: 'Cat Ràdio', politica: 38, deportes: 18, economia: 20, internacional: 14, cultura: 12 },
-    { name: 'Onda Cero', politica: 32, deportes: 28, economia: 15, internacional: 15, cultura: 10 },
-];
-
-const mencionesData = [
-    { name: 'Lun', rac1: 45, competencia: 38 },
-    { name: 'Mar', rac1: 48, competencia: 42 },
-    { name: 'Mié', rac1: 52, competencia: 48 },
-    { name: 'Jue', rac1: 50, competencia: 52 },
-    { name: 'Vie', rac1: 55, competencia: 50 },
-    { name: 'Sáb', rac1: 42, competencia: 45 },
-    { name: 'Dom', rac1: 38, competencia: 40 },
+    {
+        name: 'RAC1',
+        politica: 35,
+        deportes: 25,
+        economia: 15,
+        internacional: 10,
+        cultura: 8,
+    },
+    {
+        name: 'SER',
+        politica: 40,
+        deportes: 20,
+        economia: 18,
+        internacional: 12,
+        cultura: 5,
+    },
+    {
+        name: 'COPE',
+        politica: 30,
+        deportes: 30,
+        economia: 10,
+        internacional: 15,
+        cultura: 10,
+    },
+    {
+        name: 'Cat Ràdio',
+        politica: 38,
+        deportes: 18,
+        economia: 20,
+        internacional: 14,
+        cultura: 12,
+    },
+    {
+        name: 'Onda Cero',
+        politica: 32,
+        deportes: 28,
+        economia: 15,
+        internacional: 15,
+        cultura: 10,
+    },
 ];
 
 const alertasData = [
     {
         id: 1,
         tipo: 'Tendencia emergente',
-        mensaje: 'Aumento significativo de menciones a "crisis energética" en SER y COPE',
+        mensaje:
+            'Aumento significativo de menciones a "crisis energética" en SER y COPE',
         severidad: 'alta',
         tiempo: '30m',
     },
     {
         id: 2,
         tipo: 'Brecha de cobertura',
-        mensaje: 'Catalunya Ràdio dedicando 40% a economía local, sin cobertura en RAC1',
+        mensaje:
+            'Catalunya Ràdio dedicando 40% a economía local, sin cobertura en RAC1',
         severidad: 'media',
         tiempo: '1h',
     },
     {
         id: 3,
         tipo: 'Enfoque diferencial',
-        mensaje: 'Tono crítico en COPE sobre política gubernamental vs neutral en otras emisoras',
+        mensaje:
+            'Tono crítico en COPE sobre política gubernamental vs neutral en otras emisoras',
         severidad: 'media',
         tiempo: '2h',
     },
     {
         id: 4,
         tipo: 'Oportunidad editorial',
-        mensaje: 'Baja cobertura general sobre crisis climática, potencial nicho informativo',
+        mensaje:
+            'Baja cobertura general sobre crisis climática, potencial nicho informativo',
         severidad: 'baja',
         tiempo: '4h',
     },
@@ -147,9 +173,7 @@ export default function ObservatorioMediaDashboard() {
                             title="Sentimiento Positivo"
                             value="42.6%"
                             subtitle="en RAC1 hoy"
-                            icon={
-                                <User size={24} className="text-blue-500" />
-                            }
+                            icon={<User size={24} className="text-blue-500" />}
                             trend="down"
                             bgColor="bg-blue-50"
                         />
@@ -216,7 +240,10 @@ export default function ObservatorioMediaDashboard() {
                         {/* Gráfico de Cobertura Temática por Hora */}
                         <div className="bg-white rounded-lg shadow-md p-4">
                             <h3 className="text-lg font-semibold mb-4 flex items-center">
-                                <Radio size={20} className="text-blue-500 mr-2" />
+                                <Radio
+                                    size={20}
+                                    className="text-blue-500 mr-2"
+                                />
                                 Cobertura Política por Hora del Día
                             </h3>
                             <div className="h-80">
@@ -236,10 +263,10 @@ export default function ObservatorioMediaDashboard() {
                                         />
                                         <XAxis dataKey="name" />
                                         <YAxis
-                                            label={{ 
-                                                value: '% del tiempo', 
-                                                angle: -90, 
-                                                position: 'insideLeft' 
+                                            label={{
+                                                value: '% del tiempo',
+                                                angle: -90,
+                                                position: 'insideLeft',
                                             }}
                                         />
                                         <Tooltip />
@@ -292,7 +319,7 @@ export default function ObservatorioMediaDashboard() {
                         {/* Gráfico de distribución temática */}
                         <div className="bg-white rounded-lg shadow-md p-4">
                             <h3 className="text-lg font-semibold mb-4 flex items-center">
-                                <BarChart2 
+                                <BarChart2
                                     size={20}
                                     className="text-green-500 mr-2"
                                 />
@@ -362,11 +389,11 @@ export default function ObservatorioMediaDashboard() {
                                             stroke="#f0f0f0"
                                         />
                                         <XAxis dataKey="name" />
-                                        <YAxis 
-                                            label={{ 
-                                                value: '% del tiempo', 
+                                        <YAxis
+                                            label={{
+                                                value: '% del tiempo',
                                                 angle: -90,
-                                                position: 'insideLeft' 
+                                                position: 'insideLeft',
                                             }}
                                         />
                                         <Tooltip />

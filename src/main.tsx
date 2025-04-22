@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 import BscBase from './bsc/index.tsx';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import { BrowserRouter, Routes, Route } from 'react-router';
 import MobilityDashboard from './bsc/mobilityprediction/index.tsx';
 
 import ClimateAnalyticsDashboard from './bsc/climate/index.tsx';

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function Chatbot() {
     const [mensaje, setMensaje] = useState('');
-    const [enviado, setEnviado] = useState(false);
+    const [, setEnviado] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
     const [streamedResponse, setStreamedResponse] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);

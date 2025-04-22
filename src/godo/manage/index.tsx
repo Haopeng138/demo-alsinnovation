@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import {
-    LineChart,
     Line,
     BarChart,
     Bar,
-    Area,
     XAxis,
     YAxis,
     CartesianGrid,
@@ -24,7 +22,6 @@ import {
 import {
     TrendingUp,
     Search,
-    Radio,
     BarChart2,
     Calendar,
     ArrowUp,
@@ -43,10 +40,8 @@ import {
     MessageCircle,
     Users,
     PieChart as PieChartIcon,
-    List,
     MessageSquare,
     ThumbsUp,
-    ThumbsDown,
 } from 'lucide-react';
 import Header from '@/components/header';
 import { Route, Routes } from 'react-router';
@@ -631,7 +626,7 @@ export default function GodoObservatorioCompetitivoDashboard() {
                                             }
                                         >
                                             {selectedMedio.analisis.distribucionTemas.map(
-                                                (entry, index) => (
+                                                (_entry, index) => (
                                                     <Cell
                                                         key={`cell-${index}`}
                                                         fill={

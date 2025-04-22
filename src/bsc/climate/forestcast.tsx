@@ -5,8 +5,6 @@ import {
     PieChart,
     Pie,
     Cell,
-    ScatterChart,
-    Scatter,
     XAxis,
     YAxis,
     CartesianGrid,
@@ -33,15 +31,6 @@ const weatherImpactData = [
     { month: 'Aug', temp: 31.7, precip: 8, production: 72, logistics: 68 },
     { month: 'Sep', temp: 27.9, precip: 38, production: 82, logistics: 78 },
     { month: 'Oct', temp: 23.4, precip: 84, production: 87, logistics: 83 },
-];
-
-// Riesgos climáticos con probabilidades e impactos más realistas
-const climateRiskData = [
-    { name: 'Sequía', probability: 0.28, impact: 82, radius: 45 },
-    { name: 'Inundaciones', probability: 0.15, impact: 75, radius: 30 },
-    { name: 'Olas de calor', probability: 0.42, impact: 68, radius: 50 },
-    { name: 'Tormentas severas', probability: 0.12, impact: 88, radius: 28 },
-    { name: 'Heladas tardías', probability: 0.08, impact: 65, radius: 20 },
 ];
 
 // Impacto de temperatura en eficiencia y costos (curva más realista)

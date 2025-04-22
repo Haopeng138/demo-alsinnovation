@@ -120,7 +120,10 @@ export default function Chatbot() {
                         Asistente Virtual - La Vanguardia
                     </div>
                     <div className="h-8 w-24">
-                        <Logo></Logo>
+                        <a href="/godo">
+                            {' '}
+                            <Logo></Logo>
+                        </a>
                     </div>
                 </div>
                 <div className="w-6 h-6">

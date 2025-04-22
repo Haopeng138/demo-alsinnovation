@@ -117,8 +117,8 @@ export default function GenerateNews() {
     ): void {
         event.preventDefault();
         const link = document.createElement('a');
-        link.href = '/src/assets/Fallece el Papa Francisco.docx'; // path relative to public
-        link.download = 'your-file.docx'; // name it whatever you want
+        link.href = '/Fallece el Papa Francisco.docx'; // path relative to public
+        link.download = 'Fallece el Papa Francisco.docx'; // name it whatever you want
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

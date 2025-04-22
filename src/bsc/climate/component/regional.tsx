@@ -131,7 +131,7 @@ export function RegionalClimateAnalysis() {
     return (
         <div className="bg-white rounded-lg shadow-sm p-4">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="font-semibold text-blue-900 text-lg">
+                <h2 className="font-semibold text-bland-dark-blue text-lg">
                     Análisis Climático Regional e Impacto en Negocios
                 </h2>
                 <div className="flex space-x-2">
@@ -149,29 +149,31 @@ export function RegionalClimateAnalysis() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div className="bg-blue-50 p-3 rounded-lg">
-                    <h3 className="text-sm font-medium text-blue-800 mb-2">
+                    <h3 className="text-sm font-medium  mb-2">
                         Condiciones Climáticas Actuales
                     </h3>
                     <div className="grid grid-cols-3 gap-2">
                         <div className="text-center">
-                            <div className="text-xl font-bold text-blue-700">
+                            <div className="text-xl font-bold text-bland-blue">
                                 {regionData?.temp}°C
                             </div>
-                            <div className="text-xs text-blue-600">
+                            <div className="text-xs text-bland-blue">
                                 Temperatura
                             </div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xl font-bold text-blue-700">
+                            <div className="text-xl font-bold text-bland-blue">
                                 {regionData?.humidity}%
                             </div>
-                            <div className="text-xs text-blue-600">Humedad</div>
+                            <div className="text-xs text-bland-blue">
+                                Humedad
+                            </div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xl font-bold text-blue-700">
+                            <div className="text-xl font-bold text-bland-blue">
                                 {regionData?.precipitation}mm
                             </div>
-                            <div className="text-xs text-blue-600">
+                            <div className="text-xs text-bland-blue">
                                 Precipitación
                             </div>
                         </div>

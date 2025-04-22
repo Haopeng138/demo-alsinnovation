@@ -1,6 +1,7 @@
 import { Footer } from '@/components/footer';
 import Header from '@/components/header';
 import React, { useState } from 'react';
+import { FaRegFileWord } from 'react-icons/fa';
 
 // Type definitions
 type MediaType = 'la-vanguardia' | 'mundo-deportivo' | 'rac1';
@@ -111,6 +112,18 @@ export default function GenerateNews() {
     const optionActiveStyle = 'border-blue-500 bg-blue-50';
     const optionInactiveStyle = 'border-gray-300 hover:border-blue-300';
     const links = [{ label: 'Auto Generate News', path: '/app2' }];
+    function handleDownload(
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ): void {
+        event.preventDefault();
+        const link = document.createElement('a');
+        link.href = '/src/assets/Fallece el Papa Francisco.docx'; // path relative to public
+        link.download = 'your-file.docx'; // name it whatever you want
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
             <Header links={links}></Header>
@@ -180,7 +193,7 @@ export default function GenerateNews() {
                                         handleMediaSelection('mundo-deportivo')
                                     }
                                 >
-                                    <div className="font-sans font-bold text-blue-800">
+                                    <div className="font-serif font-bold ">
                                         Mundo Deportivo
                                     </div>
                                 </div>
@@ -188,7 +201,7 @@ export default function GenerateNews() {
                                     className={`${optionBaseStyle} ${formData.media === 'rac1' ? optionActiveStyle : optionInactiveStyle}`}
                                     onClick={() => handleMediaSelection('rac1')}
                                 >
-                                    <div className="font-mono font-bold">
+                                    <div className="font-serif font-bold">
                                         RAC1
                                     </div>
                                 </div>
@@ -407,29 +420,12 @@ export default function GenerateNews() {
                         </h2>
 
                         <div className="bg-gray-50 p-6 rounded-lg border border-gray-300">
-                            <h3 className="font-semibold mb-2">
-                                Vista previa:
-                            </h3>
-
-                            {generatedContent ? (
-                                <div className="prose max-w-none">
-                                    <p>{generatedContent}</p>
-                                </div>
-                            ) : (
-                                <div className="text-gray-500 italic">
-                                    Haz clic en "Generar contenido" para ver una
-                                    vista previa del contenido generado.
-                                </div>
-                            )}
-
                             {generatedContent && (
-                                <div className="mt-4 flex gap-2">
-                                    <button className="text-sm text-bland-dark-blue hover:text-bland-blue">
-                                        [Ver versión para redes]
-                                    </button>
-                                    <button className="text-sm text-bland-dark-blue hover:text-bland-blue">
-                                        [Ver versión extendida]
-                                    </button>
+                                <div className="flex items-center gap-2 p-2 border rounded-md shadow-sm">
+                                    <FaRegFileWord />
+                                    <span className="text-base font-medium">
+                                        Fallece el Papa Francisco.docx
+                                    </span>
                                 </div>
                             )}
                         </div>
@@ -441,8 +437,11 @@ export default function GenerateNews() {
                             >
                                 Generar contenido
                             </button>
-                            <button className="w-full bg-white border border-gray-300 hover:bg-gray-50 py-2 px-4 rounded transition">
-                                Editar texto antes de publicar
+                            <button
+                                onClick={handleDownload}
+                                className="w-full bg-white border border-gray-300 hover:bg-gray-50 py-2 px-4 rounded transition"
+                            >
+                                Descargar
                             </button>
                         </div>
                     </div>

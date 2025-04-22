@@ -88,7 +88,7 @@ export default function ClimateAnalyticsDashboard() {
                     element={<ClimateForecasts></ClimateForecasts>}
                 ></Route>
             </Routes>
-            <Footer></Footer>
+            <Footer title="AI-powered trend analysis and forecasting tools"></Footer>
         </div>
     );
 }

@@ -46,6 +46,7 @@ import {
 import Header from '@/components/header';
 import { Route, Routes } from 'react-router';
 import IADashboard from './ia';
+import { Footer } from '@/components/footer';
 
 // Datos simulados de medios
 const medios = [
@@ -955,6 +956,7 @@ export default function GodoObservatorioCompetitivoDashboard() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="ia" element={<IADashboard />} />
             </Routes>
+            <Footer title="Predictive Analytics" />
             {/* Panel de control y filtros */}
         </div>
     );

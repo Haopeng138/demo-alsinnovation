@@ -1,3 +1,4 @@
+import { Footer } from '@/components/footer';
 import { Logo } from '@/components/logo';
 import { useState, useEffect, useRef } from 'react';
 
@@ -278,6 +279,7 @@ export default function Chatbot() {
                     </div>
                 </div>
             </div>
+            <Footer title="Custom AI Agents" />
         </div>
     );
 }

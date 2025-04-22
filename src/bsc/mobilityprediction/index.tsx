@@ -21,6 +21,7 @@ import {
 import { zonasData, trendData, Zona, TrendData } from './data'; // Asegúrate de importar tus datos correctamente
 import Header from '@/components/header';
 import { Routes, Route } from 'react-router';
+import { Footer } from '@/components/footer';
 
 interface BodyProps {
     zonasData: Zona[];
@@ -716,6 +717,7 @@ export default function MobilityDashboard() {
                     />
                 </Routes>
             </div>
+            <Footer title="AI Mobility Prediction Platform" />
         </div>
     );
 }

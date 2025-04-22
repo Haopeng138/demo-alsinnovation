@@ -484,7 +484,7 @@ export default function GenerateNews() {
                     )}
                 </div>
             </div>
-            <Footer></Footer>
+            <Footer title="Auto News Generation"></Footer>
         </div>
     );
 }

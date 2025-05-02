@@ -703,7 +703,34 @@ export default function MobilityDashboard() {
                                                 <Tooltip
                                                     content={CustomTooltip}
                                                 />
-                                                <Legend />
+                                                <Legend
+                                                    payload={[
+                                                        {
+                                                            value: 'Zona 1',
+                                                            type: 'line',
+                                                            color: zonasData[0]
+                                                                .color,
+                                                        },
+                                                        {
+                                                            value: 'Zona 2',
+                                                            type: 'line',
+                                                            color: zonasData[1]
+                                                                .color,
+                                                        },
+                                                        {
+                                                            value: 'Zona 3',
+                                                            type: 'line',
+                                                            color: zonasData[2]
+                                                                .color,
+                                                        },
+                                                        {
+                                                            value: 'Zona 4',
+                                                            type: 'line',
+                                                            color: zonasData[3]
+                                                                .color,
+                                                        },
+                                                    ]}
+                                                />
                                                 <Line
                                                     data={trendData}
                                                     type="monotone"

@@ -8,6 +8,7 @@ import {
     ResponsiveContainer,
     LineChart,
     Line,
+    TooltipProps,
 } from 'recharts';
 import {
     Maximize2,
@@ -18,7 +19,14 @@ import {
     ArrowRight,
 } from 'lucide-react';
 
-import { zonasData, trendData, Zona, TrendData } from './data'; // Asegúrate de importar tus datos correctamente
+import {
+    zonasData,
+    trendData,
+    Zona,
+    TrendData,
+    predictionData,
+    PredictionData,
+} from './data'; // Asegúrate de importar tus datos correctamente
 import Header from '@/components/header';
 import { Routes, Route } from 'react-router';
 import { Footer } from '@/components/footer';
@@ -26,6 +34,7 @@ import { Footer } from '@/components/footer';
 interface BodyProps {
     zonasData: Zona[];
     trendData: TrendData[];
+    predictionData: PredictionData[];
     selectedZone: Zona | null;
     setSelectedZone: (zone: Zona | null) => void;
     handleZoneClick: (zone: Zona) => void;
@@ -34,10 +43,53 @@ interface BodyProps {
 function Body({
     zonasData,
     trendData,
+    predictionData,
     selectedZone,
     setSelectedZone,
     handleZoneClick,
 }: BodyProps) {
+    const CustomTooltip = ({
+        active,
+        payload,
+        label,
+    }: TooltipProps<number, string>) => {
+        if (active && payload && payload.length && selectedZone) {
+            const trendPoint = payload.find(
+                (p) => p.stroke === selectedZone.color
+            );
+            const predictionPoint = payload.find(
+                (p) => p.stroke === selectedZone.colorPrediction
+            );
+
+            return (
+                <div
+                    style={{
+                        backgroundColor: 'white',
+                        border: '1px solid #ccc',
+                        padding: '10px',
+                        borderRadius: '8px',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                    }}
+                >
+                    <p>
+                        <strong>Time:</strong> {label}
+                    </p>
+                    {trendPoint && (
+                        <p style={{ color: trendPoint.stroke }}>
+                            Trend: {trendPoint.value}
+                        </p>
+                    )}
+                    {predictionPoint && (
+                        <p style={{ color: predictionPoint.stroke }}>
+                            Prediction: {predictionPoint.value}
+                        </p>
+                    )}
+                </div>
+            );
+        }
+
+        return null;
+    };
     return (
         <>
             <div className="mb-8">
@@ -422,20 +474,40 @@ function Body({
                                         width="100%"
                                         height="100%"
                                     >
-                                        <LineChart data={trendData}>
+                                        <LineChart>
                                             <XAxis
                                                 dataKey="time"
+                                                type="category"
                                                 tick={{ fontSize: 10 }}
+                                                tickFormatter={(
+                                                    value: string
+                                                ) => {
+                                                    return value.replace(
+                                                        /(\d+):\d+/,
+                                                        '$1'
+                                                    );
+                                                }}
                                             />
                                             <YAxis tick={{ fontSize: 10 }} />
-                                            <Tooltip />
+                                            <Tooltip content={CustomTooltip} />
                                             <Line
                                                 type="monotone"
+                                                data={trendData}
                                                 dataKey={`zone${selectedZone.id}`}
                                                 stroke={selectedZone.color}
                                                 strokeWidth={2}
                                                 dot={false}
                                             />
+                                            <Line
+                                                type="monotone"
+                                                data={predictionData}
+                                                dataKey={`zone${selectedZone.id}`}
+                                                stroke={
+                                                    selectedZone.colorPrediction
+                                                }
+                                                strokeWidth={2}
+                                                dot={false}
+                                            ></Line>
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -531,6 +603,7 @@ export default function MobilityDashboard() {
                 <Body
                     zonasData={zonasData}
                     trendData={trendData}
+                    predictionData={predictionData}
                     selectedZone={selectedZone}
                     setSelectedZone={setSelectedZone}
                     handleZoneClick={handleZoneClick}

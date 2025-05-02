@@ -499,6 +499,7 @@ function Body({
                                                 stroke={
                                                     selectedZone.colorPrediction
                                                 }
+                                                strokeDasharray="5 5"
                                                 strokeWidth={2}
                                                 dot={false}
                                             ></Line>

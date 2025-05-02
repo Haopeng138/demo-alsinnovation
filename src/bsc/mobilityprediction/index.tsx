@@ -590,6 +590,38 @@ export default function MobilityDashboard() {
         { label: 'Reports', path: '/app2/reports' },
     ];
 
+    function CustomTooltip({
+        active,
+        payload,
+        label,
+    }: TooltipProps<number, string>) {
+        if (active && payload && payload.length) {
+            return (
+                <div className="bg-white p-3 rounded-lg shadow-md border border-gray-200">
+                    <p className="text-sm font-semibold text-gray-800">
+                        {label} : 00 h
+                    </p>
+                    {[0, 1, 2, 3].map((index) => (
+                        <p
+                            key={index}
+                            className="text-sm text-gray-600"
+                            style={{ color: payload[index].stroke }}
+                        >
+                            {payload[index].name}: {payload[index].value}{' '}
+                            <span style={{ color: payload[index + 4].stroke }}>
+                                Predicction : {payload[index + 4].value}{' '}
+                            </span>
+                        </p>
+                    ))}
+                </div>
+            );
+
+            return;
+        }
+
+        return null;
+    }
+
     return (
         <div>
             {/* Header con logo y navegación */}
@@ -656,38 +688,100 @@ export default function MobilityDashboard() {
                                             width="100%"
                                             height="100%"
                                         >
-                                            <LineChart data={trendData}>
+                                            <LineChart>
                                                 <CartesianGrid strokeDasharray="3 3" />
-                                                <XAxis dataKey="time" />
+                                                <XAxis
+                                                    dataKey="time"
+                                                    domain={[
+                                                        'dataMin',
+                                                        'dataMax',
+                                                    ]}
+                                                    tickCount={10}
+                                                    type="number"
+                                                />
                                                 <YAxis />
-                                                <Tooltip />
+                                                <Tooltip
+                                                    content={CustomTooltip}
+                                                />
                                                 <Legend />
                                                 <Line
+                                                    data={trendData}
                                                     type="monotone"
                                                     dataKey="zone1"
                                                     name="Zona 1"
-                                                    stroke="#FF9966"
+                                                    stroke={zonasData[0].color}
                                                     strokeWidth={2}
                                                 />
                                                 <Line
+                                                    data={trendData}
                                                     type="monotone"
                                                     dataKey="zone2"
                                                     name="Zona 2"
-                                                    stroke="#6699FF"
+                                                    stroke={zonasData[1].color}
                                                     strokeWidth={2}
                                                 />
                                                 <Line
+                                                    data={trendData}
                                                     type="monotone"
                                                     dataKey="zone3"
                                                     name="Zona 3"
-                                                    stroke="#9966FF"
+                                                    stroke={zonasData[2].color}
                                                     strokeWidth={2}
                                                 />
                                                 <Line
+                                                    data={trendData}
                                                     type="monotone"
                                                     dataKey="zone4"
                                                     name="Zona 4"
-                                                    stroke="#66D9C8"
+                                                    stroke={zonasData[3].color}
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    data={predictionData}
+                                                    type="monotone"
+                                                    dataKey="zone1"
+                                                    name="Zona 1"
+                                                    stroke={
+                                                        zonasData[0]
+                                                            .colorPrediction
+                                                    }
+                                                    strokeDasharray={'5 5'}
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    data={predictionData}
+                                                    type="monotone"
+                                                    dataKey="zone2"
+                                                    name="Zona 2"
+                                                    stroke={
+                                                        zonasData[1]
+                                                            .colorPrediction
+                                                    }
+                                                    strokeDasharray={'5 5'}
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    data={predictionData}
+                                                    type="monotone"
+                                                    dataKey="zone3"
+                                                    name="Zona 3"
+                                                    stroke={
+                                                        zonasData[2]
+                                                            .colorPrediction
+                                                    }
+                                                    strokeDasharray={'5 5'}
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    data={predictionData}
+                                                    type="monotone"
+                                                    dataKey="zone4"
+                                                    name="Zona 4"
+                                                    stroke={
+                                                        zonasData[3]
+                                                            .colorPrediction
+                                                    }
+                                                    strokeDasharray={'5 5'}
                                                     strokeWidth={2}
                                                 />
                                             </LineChart>

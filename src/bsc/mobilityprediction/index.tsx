@@ -478,6 +478,7 @@ function Body({
                                             <XAxis
                                                 dataKey="time"
                                                 type="number"
+                                                tickCount={10}
                                                 domain={['dataMin', 'dataMax']}
                                                 tick={{ fontSize: 10 }}
                                             />

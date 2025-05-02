@@ -72,7 +72,7 @@ function Body({
                     }}
                 >
                     <p>
-                        <strong>Time:</strong> {label}
+                        <strong>Time:</strong> {label} : 00 h
                     </p>
                     {trendPoint && (
                         <p style={{ color: trendPoint.stroke }}>
@@ -477,16 +477,9 @@ function Body({
                                         <LineChart>
                                             <XAxis
                                                 dataKey="time"
-                                                type="category"
+                                                type="number"
+                                                domain={['dataMin', 'dataMax']}
                                                 tick={{ fontSize: 10 }}
-                                                tickFormatter={(
-                                                    value: string
-                                                ) => {
-                                                    return value.replace(
-                                                        /(\d+):\d+/,
-                                                        '$1'
-                                                    );
-                                                }}
                                             />
                                             <YAxis tick={{ fontSize: 10 }} />
                                             <Tooltip content={CustomTooltip} />

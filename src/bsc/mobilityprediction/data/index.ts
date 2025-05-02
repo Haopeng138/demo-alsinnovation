@@ -64,7 +64,7 @@ export const zonasData: Zona[] = [
 ];
 
 export interface TrendData {
-    time: string;
+    time: number;
     zone1: number;
     zone2: number;
     zone3: number;
@@ -73,13 +73,13 @@ export interface TrendData {
 
 // Datos para el gráfico de tendencia
 export const trendData: TrendData[] = [
-    { time: '6:00', zone1: 85, zone2: 210, zone3: 120, zone4: 150 },
-    { time: '8:00', zone1: 230, zone2: 390, zone3: 250, zone4: 320 },
-    { time: '10:00', zone1: 420, zone2: 760, zone3: 380, zone4: 490 },
-    { time: '12:00', zone1: 610, zone2: 1050, zone3: 470, zone4: 840 },
-    { time: '14:00', zone1: 680, zone2: 1320, zone3: 580, zone4: 920 },
-    { time: '16:00', zone1: 590, zone2: 1140, zone3: 520, zone4: 850 },
-    { time: '18:00', zone1: 480, zone2: 870, zone3: 430, zone4: 720 },
+    { time: 6, zone1: 85, zone2: 210, zone3: 120, zone4: 150 },
+    { time: 8, zone1: 230, zone2: 390, zone3: 250, zone4: 320 },
+    { time: 10, zone1: 420, zone2: 760, zone3: 380, zone4: 490 },
+    { time: 12, zone1: 610, zone2: 1050, zone3: 470, zone4: 840 },
+    { time: 14, zone1: 680, zone2: 1320, zone3: 580, zone4: 920 },
+    { time: 16, zone1: 590, zone2: 1140, zone3: 520, zone4: 850 },
+    { time: 18, zone1: 480, zone2: 870, zone3: 430, zone4: 720 },
 ];
 
 export interface DateTime {
@@ -87,7 +87,7 @@ export interface DateTime {
 }
 
 export interface PredictionData {
-    time: string;
+    time: number;
     zone1: number;
     zone2: number;
     zone3: number;
@@ -95,14 +95,14 @@ export interface PredictionData {
 }
 // Datos para la predicción
 export const predictionData: PredictionData[] = [
-    { time: '6:00', zone1: 80, zone2: 215, zone3: 118, zone4: 155 },
-    { time: '8:00', zone1: 225, zone2: 400, zone3: 245, zone4: 330 },
-    { time: '10:00', zone1: 430, zone2: 750, zone3: 390, zone4: 480 },
-    { time: '12:00', zone1: 620, zone2: 1065, zone3: 465, zone4: 830 },
-    { time: '14:00', zone1: 670, zone2: 1300, zone3: 590, zone4: 935 },
-    { time: '16:00', zone1: 580, zone2: 1120, zone3: 525, zone4: 860 },
-    { time: '18:00', zone1: 490, zone2: 880, zone3: 425, zone4: 710 },
-    { time: '20:00', zone1: 410, zone2: 755, zone3: 370, zone4: 660 },
-    { time: '22:00', zone1: 330, zone2: 600, zone3: 315, zone4: 530 },
-    { time: '24:00', zone1: 190, zone2: 440, zone3: 225, zone4: 390 },
+    { time: 6, zone1: 80, zone2: 215, zone3: 118, zone4: 155 },
+    { time: 8, zone1: 225, zone2: 400, zone3: 245, zone4: 330 },
+    { time: 10, zone1: 430, zone2: 750, zone3: 390, zone4: 480 },
+    { time: 12, zone1: 620, zone2: 1065, zone3: 465, zone4: 830 },
+    { time: 14, zone1: 670, zone2: 1300, zone3: 590, zone4: 935 },
+    { time: 16, zone1: 580, zone2: 1120, zone3: 525, zone4: 860 },
+    { time: 18, zone1: 490, zone2: 880, zone3: 425, zone4: 710 },
+    { time: 20, zone1: 410, zone2: 755, zone3: 370, zone4: 660 },
+    { time: 22, zone1: 330, zone2: 600, zone3: 315, zone4: 530 },
+    { time: 24, zone1: 190, zone2: 440, zone3: 225, zone4: 390 },
 ];
